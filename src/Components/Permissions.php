@@ -1,5 +1,7 @@
 <?php
 
+namespace Paksuco\Permission\Components;
+
 use Livewire\Component;
 
 class Permissions extends Component
