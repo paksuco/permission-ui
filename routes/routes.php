@@ -1,13 +1,15 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 
 /**
  * Routes for the package would go here
  */
 
- Route::group(['prefix' => config("permission-ui.admin_route_prefix")], function () {
-    Route::livewire('/roles', 'roles')->layout(config("permission-ui.template_to_extend"));
-    Route::livewire('/permissions', 'permissions')->layout(config("permission-ui.template_to_extend"));
- });
+Route::group([
+    'layout' => config("permission-ui.template_to_extend", "layouts.app"),
+    'prefix' => config("permission-ui.admin_route_prefix", ""),
+    'as' => 'paksuco.',
+], function () {
+    Route::livewire('/permissions', "permission-ui::permissions")->name("permissions")->middleware(config("permission-ui.middleware", []));
+});

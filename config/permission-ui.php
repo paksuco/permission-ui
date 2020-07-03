@@ -11,6 +11,11 @@ return [
     'admin_route_prefix' => "admin",
 
     /**
+     * Guards for the page
+     */
+    'middleware' => ["web", "auth"],
+
+    /**
      * Your admin template layout to extend
      */
     'template_to_extend' => "layouts.app",

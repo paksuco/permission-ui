@@ -2,7 +2,10 @@
 
 namespace Paksuco\Permission;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use Paksuco\Permission\Components\Permissions;
 
 class PermissionServiceProvider extends ServiceProvider
 {
@@ -11,7 +14,7 @@ class PermissionServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = false;
+    protected $defer = true;
 
     /**
      * Bootstrap the application events.
@@ -22,9 +25,13 @@ class PermissionServiceProvider extends ServiceProvider
     {
         $this->handleConfigs();
         // $this->handleMigrations();
-        // $this->handleViews();
-        // $this->handleTranslations();
-        // $this->handleRoutes();
+        $this->handleViews();
+        $this->handleTranslations();
+        $this->handleRoutes();
+
+        Event::listen("paksuco.menu.beforeRender", function($manager){
+            $manager->menu("admin")->addItem("Permission", route("paksuco.permissions"), "fa fa-lock");
+        });
     }
 
     /**
@@ -35,6 +42,7 @@ class PermissionServiceProvider extends ServiceProvider
     public function register()
     {
         // Bind any implementations.
+
     }
 
     /**
@@ -66,6 +74,10 @@ class PermissionServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../views', 'permission-ui');
 
         $this->publishes([__DIR__.'/../views' => base_path('resources/views/vendor/permission-ui')]);
+
+        Livewire::component('permission-ui::permissions', \Paksuco\Permission\Components\Permissions::class);
+        Livewire::component('permission-ui::permission-actions', \Paksuco\Permission\Components\PermissionActions::class);
+        Livewire::component('permission-ui::role-actions', \Paksuco\Permission\Components\RoleActions::class);
     }
 
     private function handleMigrations()
