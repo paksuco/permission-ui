@@ -1,7 +1,7 @@
 <?php
 
 
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Routes for the package would go here
