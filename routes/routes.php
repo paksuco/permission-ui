@@ -8,6 +8,6 @@ use Illuminate\Routing\Route;
  */
 
  Route::group(['prefix' => config("permission-ui.admin_route_prefix")], function () {
-    Route::livewire('roles')->layout(config("permission-ui.template_to_extend"));
-    Route::livewire('permissions')->layout(config("permission-ui.template_to_extend"));
+    Route::livewire('/roles', 'roles')->layout(config("permission-ui.template_to_extend"));
+    Route::livewire('/permissions', 'permissions')->layout(config("permission-ui.template_to_extend"));
  });
