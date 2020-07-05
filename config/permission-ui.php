@@ -4,9 +4,10 @@ return [
     /**
      * This setting defines the prefix for the package routes.
      *
-     * for example if your admin page lives at /admin, the package route for
-     * permission-ui roles page will be '/admin/roles', or the admin page is set to '/management',
-     * you should change this to 'management' to set role management routing to 'management/roles'
+     * For example if your admin page lives at /admin, the package route for
+     * permission-ui roles page will be '/admin/roles', or the admin page is
+     * set to '/management', you should change this to 'management' to set role
+     * management routing to 'management/roles'
      */
     'admin_route_prefix' => "admin",
 
@@ -26,4 +27,18 @@ return [
      */
     'permanent_roles' => [/* 'admin'*/],
     'permanent_permissions' => [/* 'enter_admin_area' */],
+
+    /**
+     * If you want to build a CRUD like permission groups, you can set this to true
+     * and modify the actions for your needs. But to make it work without problems,
+     * you need a clean permission and roles table.
+     */
+    'use_common_actions' => true,
+
+    'actions' => [
+        'create' => 'fas fa-plus-circle',
+        'read' => 'fas fa-eye',
+        'update' => 'fas fa-pencil-alt',
+        'delete' => 'fas fa-trash-alt'
+    ]
 ];

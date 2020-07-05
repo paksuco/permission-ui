@@ -14,7 +14,7 @@
                 @error('rolename') <span class="absolute top-10 left-0 text-red-700 text-xs">{{ $message }}</span>
                 @enderror
                 <button class="shadow bg-purple-500 hover:bg-purple-400 whitespace-no-wrap focus:shadow-outline
-                focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+                focus:outline-none text-white font-bold py-2 px-4 rounded" wire:loading.attr="disabled" type="submit">
                     Create new Role
                 </button>
             </div>
