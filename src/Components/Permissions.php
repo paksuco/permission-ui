@@ -3,8 +3,8 @@
 namespace Paksuco\Permission\Components;
 
 use Livewire\Component;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission as SpatiePermission;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 class Permissions extends Component
 {
@@ -15,6 +15,8 @@ class Permissions extends Component
 
     public $useActions;
     public $actions;
+
+    protected $listeners = ['deleteRole'];
 
     public function mount($page = 1)
     {
@@ -38,23 +40,28 @@ class Permissions extends Component
             'rolename' => "required|min:3|unique:" . config("permission.table_names.roles") . ",name,NULL,id",
         ]);
 
-        Role::create(["name" => $this->rolename]);
+        SpatieRole::create(["name" => $this->rolename]);
 
         $this->rolename = "";
     }
 
     public function saveNewPermission()
     {
-        $firstAction = collect($this->actions)->keys()->first();
-        $this->permissionNameSuffixed = $this->permissionname . "-" . $firstAction;
+
+        $firstAction = $this->useActions ? collect($this->actions)->keys()->first() : "";
+        $this->permissionNameSuffixed = $this->useActions ? $this->permissionname . "-" . $firstAction : $this->permissionname;
 
         $this->validate([
             'permissionname' => "required|min:3",
             'permissionNameSuffixed' => "unique:" . config("permission.table_names.permissions") . ",name,NULL,id",
         ]);
 
-        foreach (array_keys($this->actions) as $key) {
-            Permission::create(["name" => $this->permissionname . "-" . $key]);
+        if ($this->useActions) {
+            foreach (array_keys($this->actions) as $key) {
+                SpatiePermission::create(["name" => $this->permissionname . "-" . $key]);
+            }
+        } else {
+            SpatiePermission::create(["name" => $this->permissionname]);
         }
 
         $this->permissionname = "";
@@ -62,8 +69,8 @@ class Permissions extends Component
 
     public function togglePermission($roleId, $permissionId)
     {
-        $role = Role::findOrFail($roleId);
-        $permission = Permission::findOrFail($permissionId);
+        $role = SpatieRole::findOrFail($roleId);
+        $permission = SpatiePermission::findOrFail($permissionId);
 
         if ($role->hasPermissionTo($permission->name)) {
             $role->revokePermissionTo($permission->name);
@@ -72,13 +79,19 @@ class Permissions extends Component
         }
     }
 
+    public function deleteRole($roleId)
+    {
+        $role = SpatieRole::find($roleId);
+        $role->delete();
+    }
+
     public function render()
     {
-        $roles = Role::with("permissions")->get();
+        $roles = SpatieRole::with("permissions")->get();
         $firstAction = collect($this->actions)->keys()->first();
-        $permissions = Permission::all();
+        $permissions = SpatiePermission::all();
 
-        $permissionGroups = Permission::where('name', 'like', '%-' . $firstAction)->get()
+        $permissionGroups = SpatiePermission::where('name', 'like', '%-' . $firstAction)->get()
             ->transform(function ($permission) use ($firstAction) {
                 return substr($permission->name, 0, strlen($permission->name) - strlen($firstAction) - 1);
             });

@@ -1,6 +1,6 @@
 <div class="mb-3 p-3">
     <h2 class="text-xl font-bold text-black border-b border-blue-800 mb-3">Current Roles & Permissions</h2>
-    <table class="">
+    <table class="md:w-full table">
         <thead>
             <tr>
                 <th></th>
@@ -81,7 +81,7 @@
                                     wire:loading.class.remove="fa-times cursor-pointer text-red-600"
                                     wire:loading.class="cursor-wait fa-hourglass text-gray-300"
                                     wire:click="togglePermission({{$role->id}},{{$permission->id}})"
-                                    class="fa f2e2ea-times text-lg font-bold text-red-600 cursor-pointer"
+                                    class="fa fa-times text-lg font-bold text-red-600 cursor-pointer"
                                     style="min-width: 20px;"></i>
                             @endif
                         </td>

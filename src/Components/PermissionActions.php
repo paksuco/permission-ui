@@ -16,6 +16,9 @@ class PermissionActions extends Component
 
     public function render()
     {
-        return view("permission-ui::components.permission-actions", ["permission" => $this->permission]);
+        return view(
+            "permission-ui::components.partials.permission-actions",
+            ["permission" => $this->permission]
+        );
     }
 }
