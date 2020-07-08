@@ -18,29 +18,37 @@
          x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
          x-transition:leave-start="transform opacity-100 scale-100"
          x-transition:leave-end="transform opacity-0 scale-95"
-         class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg z-10">
+         class="origin-top-right absolute left-0 mt-2 w-auto rounded-md shadow-lg z-10">
         <div class="rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
              aria-labelledby="options-menu">
-            <div class="p-2">
-                <div class="my-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                      Role Name
-                    </label>
-                    <input wire:model="name" class="shadow-inner appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    @if(count($errors))
-                    @foreach ($errors->all() as $message)
-                        <span class="my-2 block bg-red-300 py-1 px-2 rounded-md border border-red-400 text-gray-900 text-xs leading-4">{{ $message }}</span>
-                    @endforeach
-                    @endif
-                  </div>
-                <button type="button" wire:click="updateRole" href="#"
-                   class="w-full mb-2 px-4 py-2 text-sm text-left rounded-md text-white bg-green-700 hover:bg-green-600 hover:text-gray-100 focus:outline-none"
-                   role="menuitem">Update
-                </button>
-                <button type="button" wire:click="deleteRole" href="#"
-                   class="w-full px-4 py-2 text-sm text-left rounded-md text-white bg-red-700 hover:bg-red-600 hover:text-gray-100 focus:outline-none"
-                   role="menuitem">Delete
-                </button>
+            <div class="p-0">
+                <div class="p-2">
+                    <div class="flex">
+                        <div class="w-1/3 items-center flex">
+                            <label class="text-xs font-medium block leading-4">Role Name</label>
+                        </div>
+                        <div class="w-2/3">
+                            <input wire:model="name" class="shadow-inner text-sm appearance-none border rounded w-full p-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            @if(count($errors))
+                                @foreach ($errors->all() as $message)
+                                    <span class="my-2 block bg-red-300 py-1 px-2 rounded-md border border-red-400 text-gray-900 text-xs leading-4">{{ $message }}</span>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="px-2">
+                    <button type="button" wire:click="updateRole" href="#"
+                    class="w-full rounded-md px-4 py-2 text-sm text-left text-white bg-green-700 hover:bg-green-600 hover:text-gray-100 focus:outline-none"
+                    role="menuitem">Update
+                    </button>
+                </div>
+                <div class="p-2">
+                    <button type="button" wire:click="deleteRole" href="#"
+                    class="w-full px-4 py-2 text-sm text-left rounded-md text-white bg-red-700 hover:bg-red-600 hover:text-gray-100 focus:outline-none"
+                    role="menuitem">Delete
+                    </button>
+                </div>
             </div>
         </div>
     </div>
