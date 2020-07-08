@@ -3,6 +3,7 @@
 namespace Paksuco\Permission\Components;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Permission\Models\Role as SpatieRole;
 
@@ -16,7 +17,7 @@ class Permissions extends Component
     public $useActions;
     public $actions;
 
-    protected $listeners = ['deleteRole'];
+    protected $listeners = ['deleteRole', 'togglePermission'];
 
     public function mount($page = 1)
     {
@@ -47,7 +48,6 @@ class Permissions extends Component
 
     public function saveNewPermission()
     {
-
         $firstAction = $this->useActions ? collect($this->actions)->keys()->first() : "";
         $this->permissionNameSuffixed = $this->useActions ? $this->permissionname . "-" . $firstAction : $this->permissionname;
 

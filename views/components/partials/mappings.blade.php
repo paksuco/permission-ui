@@ -27,15 +27,9 @@
             @endphp
             @foreach ($looper as $permission)
                 <tr class="@if($loop->even) bg-gray-100 @endif">
-                    @if($useActions === false)
                     <td class="border px-4 py-2 bg-gray-200">
                         @livewire("permission-ui::permission-actions", ["permission" => $permission], key("permission-" . ($useActions ? $permission : $permission->id)))
                     </td>
-                    @else
-                    <td class="border px-4 py-2 bg-gray-200">
-                        {{$permission}}
-                    </td>
-                    @endif
                     @foreach($roles as $role)
                         @if($useActions)
                             @foreach($actions as $key => $action)
@@ -47,7 +41,7 @@
                                                 wire:key='{{$role->id . "-" . $perm->id}}'
                                                 wire:loading.class.remove="fa-check cursor-pointer text-green-600"
                                                 wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                                wire:click="togglePermission({{$role->id}},{{$perm->id}})"
+                                                wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$perm->id}})"
                                                 class="fa fa-check text-lg font-bold text-green-600 cursor-pointer"
                                                 style="min-width: 20px;"></i>
                                         @else
@@ -55,7 +49,7 @@
                                                 wire:key='{{$role->id . "-" . $perm->id}}'
                                                 wire:loading.class.remove="fa-times cursor-pointer text-red-600"
                                                 wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                                wire:click="togglePermission({{$role->id}},{{$perm->id}})"
+                                                wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$perm->id}})"
                                                 class="fa fa-times text-lg font-bold text-red-600 cursor-pointer"
                                                 style="min-width: 20px;"></i>
                                         @endif
@@ -72,7 +66,7 @@
                                     wire:key='{{$role->id . "-" . $permission->id}}'
                                     wire:loading.class.remove="fa-check cursor-pointer text-green-600"
                                     wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                    wire:click="togglePermission({{$role->id}},{{$permission->id}})"
+                                    wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
                                     class="fa fa-check text-lg font-bold text-green-600 cursor-pointer"
                                     style="min-width: 20px;"></i>
                             @else
@@ -80,7 +74,7 @@
                                     wire:key='{{$role->id . "-" . $permission->id}}'
                                     wire:loading.class.remove="fa-times cursor-pointer text-red-600"
                                     wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                    wire:click="togglePermission({{$role->id}},{{$permission->id}})"
+                                    wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
                                     class="fa fa-times text-lg font-bold text-red-600 cursor-pointer"
                                     style="min-width: 20px;"></i>
                             @endif
