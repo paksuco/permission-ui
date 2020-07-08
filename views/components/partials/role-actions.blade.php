@@ -27,12 +27,17 @@
                       Role Name
                     </label>
                     <input wire:model="name" class="shadow-inner appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    @if(count($errors))
+                    @foreach ($errors->all() as $message)
+                        <span class="my-2 block bg-red-300 py-1 px-2 rounded-md border border-red-400 text-gray-900 text-xs leading-4">{{ $message }}</span>
+                    @endforeach
+                    @endif
                   </div>
-                <button type="button" wire:click="update" href="#"
+                <button type="button" wire:click="updateRole" href="#"
                    class="w-full mb-2 px-4 py-2 text-sm text-left rounded-md text-white bg-green-700 hover:bg-green-600 hover:text-gray-100 focus:outline-none"
                    role="menuitem">Update
                 </button>
-                <button type="button" wire:click="delete" href="#"
+                <button type="button" wire:click="deleteRole" href="#"
                    class="w-full px-4 py-2 text-sm text-left rounded-md text-white bg-red-700 hover:bg-red-600 hover:text-gray-100 focus:outline-none"
                    role="menuitem">Delete
                 </button>

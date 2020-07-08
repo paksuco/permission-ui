@@ -3,72 +3,77 @@
 namespace Paksuco\Permission\Components;
 
 use Livewire\Component;
-use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class Permissions extends Component
 {
-    public $page;
-
-    public $rolename;
-    public $permissionname;
-
+    public $roleName;
+    public $permissionName;
     public $useActions;
     public $actions;
+    public $updated;
 
-    protected $listeners = ['deleteRole', 'togglePermission'];
+    protected $listeners = ['deleteRole', 'togglePermission', 'updateRole', 'updatePermission', 'deletePermission'];
 
-    public function mount($page = 1)
+    public function mount()
     {
-        $this->page = $page;
         $this->useActions = config("permission-ui.use_common_actions", false);
-        $this->actions = [];
-
-        if ($this->useActions) {
-            $this->actions = config("permission-ui.actions", [
-                'create' => 'fas fa-plus-circle',
-                'read' => 'fas fa-eye',
-                'update' => 'fas fa-pencil-alt',
-                'delete' => 'fas fa-trash-alt',
-            ]);
+        $this->actions = config("permission-ui.actions", []);
+        if (count($this->actions) === 0) {
+            $this->useActions = false;
         }
+        $updated = false;
     }
 
     public function saveNewRole()
     {
+        $this->resetErrorBag();
+        $this->resetValidation();
+
         $this->validate([
-            'rolename' => "required|min:3|unique:" . config("permission.table_names.roles") . ",name,NULL,id",
+            'roleName' => "required|min:3|unique:" . config("permission.table_names.roles") . ",name,NULL,id",
+        ], [], [
+            'roleName' => 'role name',
         ]);
 
-        SpatieRole::create(["name" => $this->rolename]);
+        SpatieRole::create(["name" => $this->roleName]);
 
-        $this->rolename = "";
+        $this->roleName = "";
     }
 
     public function saveNewPermission()
     {
+        $this->resetErrorBag();
+        $this->resetValidation();
+
         $firstAction = $this->useActions ? collect($this->actions)->keys()->first() : "";
-        $this->permissionNameSuffixed = $this->useActions ? $this->permissionname . "-" . $firstAction : $this->permissionname;
+        $this->permissionNameSuffixed = $this->useActions ? $this->permissionName . "-" . $firstAction : $this->permissionName;
 
         $this->validate([
-            'permissionname' => "required|min:3",
+            'permissionName' => "required|min:3",
             'permissionNameSuffixed' => "unique:" . config("permission.table_names.permissions") . ",name,NULL,id",
+        ], [], [
+            'permissionName' => 'permission name',
+            'permissionNameSuffixed' => 'permission name',
         ]);
 
         if ($this->useActions) {
             foreach (array_keys($this->actions) as $key) {
-                SpatiePermission::create(["name" => $this->permissionname . "-" . $key]);
+                SpatiePermission::create(["name" => $this->permissionName . "-" . $key]);
             }
         } else {
-            SpatiePermission::create(["name" => $this->permissionname]);
+            SpatiePermission::create(["name" => $this->permissionName]);
         }
 
-        $this->permissionname = "";
+        $this->permissionName = "";
     }
 
     public function togglePermission($roleId, $permissionId)
     {
+        $this->resetErrorBag();
+        $this->resetValidation();
+
         $role = SpatieRole::findOrFail($roleId);
         $permission = SpatiePermission::findOrFail($permissionId);
 
@@ -79,10 +84,38 @@ class Permissions extends Component
         }
     }
 
+    public function updatePermission()
+    {
+        $this->updated = !$this->updated;
+    }
+
+    public function updateRole()
+    {
+        $this->updated = !$this->updated;
+    }
+
     public function deleteRole($roleId)
     {
         $role = SpatieRole::find($roleId);
         $role->delete();
+    }
+
+    public function deletePermission($permissionName)
+    {
+        if ($this->useActions) {
+            $actions = array_keys($this->actions);
+            foreach ($actions as $action) {
+                $perm = SpatiePermission::where("name", "=", $permissionName . "-" . $action)->first();
+                if ($perm instanceof SpatiePermission) {
+                    $perm->delete();
+                }
+            }
+        } else {
+            $perm = SpatiePermission::where("name", "=", $permissionName)->first();
+            if ($perm instanceof SpatiePermission) {
+                $perm->delete();
+            }
+        }
     }
 
     public function render()

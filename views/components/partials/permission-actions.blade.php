@@ -19,47 +19,29 @@
          x-transition:leave-start="transform opacity-100 scale-100"
          x-transition:leave-end="transform opacity-0 scale-95"
          class="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg z-10">
-        <div class="rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
-             aria-labelledby="options-menu">
-            <div class="py-1">
-                <a href="#"
-                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                   role="menuitem">Edit
-                </a>
-                <a href="#"
-                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                   role="menuitem">Duplicate
-                </a>
-            </div>
-            <div class="border-t border-gray-100"></div>
-            <div class="py-1">
-                <a href="#"
-                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                   role="menuitem">Archive
-                </a>
-                <a href="#"
-                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                   role="menuitem">Move
-                </a>
-            </div>
-            <div class="border-t border-gray-100"></div>
-            <div class="py-1">
-                <a href="#"
-                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                   role="menuitem">Share
-                </a>
-                <a href="#"
-                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                   role="menuitem">Add to favorites
-                </a>
-            </div>
-            <div class="border-t border-gray-100"></div>
-            <div class="py-1">
-                <a href="#"
-                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                   role="menuitem">Delete
-                </a>
-            </div>
+         <div class="rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
+         aria-labelledby="options-menu">
+        <div class="p-2">
+            <div class="my-2">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                  Permission Name
+                </label>
+                <input wire:model="name" class="shadow-inner appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                @if(count($errors))
+                    @foreach ($errors->all() as $message)
+                        <span class="my-2 block bg-red-300 py-1 px-2 rounded-md border border-red-400 text-gray-900 text-xs leading-4">{{ $message }}</span>
+                    @endforeach
+                @endif
+              </div>
+            <button type="button" wire:click="updatePermission" href="#"
+               class="w-full mb-2 px-4 py-2 text-sm text-left rounded-md text-white bg-green-700 hover:bg-green-600 hover:text-gray-100 focus:outline-none"
+               role="menuitem">Update
+            </button>
+            <button type="button" wire:click="deletePermission" href="#"
+               class="w-full px-4 py-2 text-sm text-left rounded-md text-white bg-red-700 hover:bg-red-600 hover:text-gray-100 focus:outline-none"
+               role="menuitem">Delete
+            </button>
         </div>
+    </div>
     </div>
 </div>

@@ -35,7 +35,7 @@
                             @foreach($actions as $key => $action)
                                 @php $perm = $permissions->where("name", "=", $permission . "-" . $key)->first(); @endphp
                                 <td class="border px-4 py-2 text-center">
-                                    @if($perm)
+                                    @if($perm instanceof \Spatie\Permission\Models\Permission)
                                         @if($role->hasPermissionTo($perm->name))
                                             <i
                                                 wire:key='{{$role->id . "-" . $perm->id}}'
@@ -58,25 +58,30 @@
                                         style="min-width: 20px;"></i>
                                     @endif
                                 </td>
-                            @endforeach
+                                @endforeach
                         @else
                         <td class="border px-4 py-2 text-center">
-                            @if($role->hasPermissionTo($permission->name))
-                                <i
-                                    wire:key='{{$role->id . "-" . $permission->id}}'
-                                    wire:loading.class.remove="fa-check cursor-pointer text-green-600"
-                                    wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                    wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
-                                    class="fa fa-check text-lg font-bold text-green-600 cursor-pointer"
-                                    style="min-width: 20px;"></i>
+                            @if($permission instanceof \Spatie\Permission\Models\Permission)
+                                @if($role->hasPermissionTo($permission->name))
+                                    <i
+                                        wire:key='{{$role->id . "-" . $permission->id}}'
+                                        wire:loading.class.remove="fa-check cursor-pointer text-green-600"
+                                        wire:loading.class="cursor-wait fa-hourglass text-gray-300"
+                                        wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
+                                        class="fa fa-check text-lg font-bold text-green-600 cursor-pointer"
+                                        style="min-width: 20px;"></i>
+                                @else
+                                    <i
+                                        wire:key='{{$role->id . "-" . $permission->id}}'
+                                        wire:loading.class.remove="fa-times cursor-pointer text-red-600"
+                                        wire:loading.class="cursor-wait fa-hourglass text-gray-300"
+                                        wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
+                                        class="fa fa-times text-lg font-bold text-red-600 cursor-pointer"
+                                        style="min-width: 20px;"></i>
+                                @endif
                             @else
-                                <i
-                                    wire:key='{{$role->id . "-" . $permission->id}}'
-                                    wire:loading.class.remove="fa-times cursor-pointer text-red-600"
-                                    wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                    wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
-                                    class="fa fa-times text-lg font-bold text-red-600 cursor-pointer"
-                                    style="min-width: 20px;"></i>
+                                <i class='fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'
+                                style="min-width: 20px;"></i>
                             @endif
                         </td>
                         @endif

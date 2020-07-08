@@ -17,13 +17,17 @@ class RoleActions extends Component
         $this->name = $role->name;
     }
 
-    public function update()
+    public function updateRole()
     {
+        $this->resetErrorBag();
+        $this->resetValidation();
+
+        $this->validate(["name" => "required|filled|unique:roles,name,".$this->role->id.",id"], [], ["name" => "role name"]);
         $this->role->name = $this->name;
         $this->role->save();
     }
 
-    public function delete()
+    public function deleteRole()
     {
         $this->emitUp("deleteRole", $this->role->id);
     }
