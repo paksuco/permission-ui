@@ -1,4 +1,4 @@
-<div class="relative inline-block text-left w-full" x-data="{ open: false }" @keydown.window.escape="open = false"
+<div class="relative whitespace-no-wrap inline-block text-left w-full" x-data="{ open: false }" @keydown.window.escape="open = false"
      @click.away="open = false" @refresh-mappings="open = false">
     <div>
         <span class="rounded-md shadow-sm z-0">
@@ -19,7 +19,8 @@
          x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
          x-transition:leave-start="transform opacity-100 scale-100"
          x-transition:leave-end="transform opacity-0 scale-95"
-         class="origin-top-right absolute left-0 mt-2 w-full rounded-md shadow-lg z-10">
+         class="origin-top-right absolute left-0 mt-2 w-full rounded-md shadow-lg z-10"
+         style="width: min-content">
         <div class="rounded-md bg-white" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             <div class="px-4 py-2 font-medium bg-purple-600 text-white rounded-t-md">
                 Edit Permission
@@ -36,6 +37,8 @@
                     <div class="text-xs">Permission Name: </div>
                     <input wire:model.debounce.500ms="name" class="shadow-inner appearance-none border w-full rounded mb-3 p-1 text-gray-700
                            leading-tight focus:outline-none focus:shadow-none">
+                </div>
+                <div class="w-full mb-1">
                     <button type="button" wire:click="updatePermission" href="#" class="w-full rounded p-1 px-3 text-center text-white bg-blue-500
                             hover:bg-blue-700 focus:outline-none" role="menuitem">Update
                     </button>

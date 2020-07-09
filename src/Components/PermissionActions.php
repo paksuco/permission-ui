@@ -42,14 +42,12 @@ class PermissionActions extends Component
         return $permissions;
     }
 
-
     public function allowAll()
     {
         $this->resetErrorBag();
         $this->resetvalidation();
 
-        foreach(Role::all() as $role)
-        {
+        foreach (Role::all() as $role) {
             $role->givePermissionTo($this->getPermissions());
         }
 
@@ -61,8 +59,7 @@ class PermissionActions extends Component
         $this->resetErrorBag();
         $this->resetvalidation();
 
-        foreach(Role::all() as $role)
-        {
+        foreach (Role::all() as $role) {
             $role->revokePermissionTo($this->getPermissions());
         }
 
@@ -122,8 +119,8 @@ class PermissionActions extends Component
     public function deletePermission()
     {
         $permissions = $this->getPermissions();
-        foreach($permissions as $permission){
-            $perm = SpatiePermission::where("name", "=", $permission);
+        foreach ($permissions as $permission) {
+            $perm = SpatiePermission::where("name", "=", $permission)->first();
             if ($perm instanceof SpatiePermission) {
                 $perm->delete();
             }
