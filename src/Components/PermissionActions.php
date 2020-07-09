@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission as SpatiePermission;
+use Spatie\Permission\Models\Role;
 
 class PermissionActions extends Component
 {
@@ -23,6 +24,49 @@ class PermissionActions extends Component
         if (count($this->actions) === 0) {
             $this->useActions = false;
         }
+    }
+
+    private function getPermissions()
+    {
+        $permissions = [];
+
+        if ($this->useActions) {
+            $actions = array_keys($this->actions);
+            foreach ($actions as $action) {
+                $permissions[] = $this->permission . "-" . $action;
+            }
+        } else {
+            $permissions[] = $this->permission;
+        }
+
+        return $permissions;
+    }
+
+
+    public function allowAll()
+    {
+        $this->resetErrorBag();
+        $this->resetvalidation();
+
+        foreach(Role::all() as $role)
+        {
+            $role->givePermissionTo($this->getPermissions());
+        }
+
+        $this->emit("refreshMappings");
+    }
+
+    public function disallowAll()
+    {
+        $this->resetErrorBag();
+        $this->resetvalidation();
+
+        foreach(Role::all() as $role)
+        {
+            $role->revokePermissionTo($this->getPermissions());
+        }
+
+        $this->emit("refreshMappings");
     }
 
     public function updatePermission()
@@ -72,12 +116,19 @@ class PermissionActions extends Component
                 $perm->save();
             }
         }
-        $this->emitUp('updatePermission');
+        $this->emit("refreshMappings");
     }
 
     public function deletePermission()
     {
-        $this->emitUp("deletePermission", $this->permission);
+        $permissions = $this->getPermissions();
+        foreach($permissions as $permission){
+            $perm = SpatiePermission::where("name", "=", $permission);
+            if ($perm instanceof SpatiePermission) {
+                $perm->delete();
+            }
+        }
+        $this->emit("refreshMappings");
     }
 
     public function render()

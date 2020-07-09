@@ -14,7 +14,7 @@ class Permissions extends Component
     public $actions;
     public $updated;
 
-    protected $listeners = ['deleteRole', 'togglePermission', 'updateRole', 'updatePermission', 'deletePermission'];
+    protected $listeners = ['refreshMappings'];
 
     public function mount()
     {
@@ -23,7 +23,7 @@ class Permissions extends Component
         if (count($this->actions) === 0) {
             $this->useActions = false;
         }
-        $updated = false;
+        $this->updated = false;
     }
 
     public function saveNewRole()
@@ -84,38 +84,9 @@ class Permissions extends Component
         }
     }
 
-    public function updatePermission()
+    public function refreshMappings()
     {
         $this->updated = !$this->updated;
-    }
-
-    public function updateRole()
-    {
-        $this->updated = !$this->updated;
-    }
-
-    public function deleteRole($roleId)
-    {
-        $role = SpatieRole::find($roleId);
-        $role->delete();
-    }
-
-    public function deletePermission($permissionName)
-    {
-        if ($this->useActions) {
-            $actions = array_keys($this->actions);
-            foreach ($actions as $action) {
-                $perm = SpatiePermission::where("name", "=", $permissionName . "-" . $action)->first();
-                if ($perm instanceof SpatiePermission) {
-                    $perm->delete();
-                }
-            }
-        } else {
-            $perm = SpatiePermission::where("name", "=", $permissionName)->first();
-            if ($perm instanceof SpatiePermission) {
-                $perm->delete();
-            }
-        }
     }
 
     public function render()

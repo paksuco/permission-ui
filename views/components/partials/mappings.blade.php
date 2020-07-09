@@ -1,11 +1,11 @@
 <div class="mb-3 p-3">
     <h2 class="text-xl font-bold text-black border-b border-blue-800 mb-3">Current Roles & Permissions</h2>
-    <table class="md:w-full table">
+    <table class="md:w-full table paksuco-permissions">
         <thead>
             <tr>
                 <th></th>
                 @foreach($roles as $role)
-                <th colspan="{{$useActions ? count($actions) : 1}}" class="border px-4 py-2 bg-gray-200 font-normal">
+                <th colspan="{{$useActions ? count($actions) : 1}}" class="p-1 font-normal">
                     @livewire("permission-ui::role-actions", ["role" => $role], key("role-" . $role->id))
                 </th>
                 @endforeach
@@ -15,7 +15,9 @@
                 @foreach($roles as $role)
                 @if($useActions)
                 @foreach($actions as $key => $action)
-                <th class="text-xs border text-white bg-gray-800"><i class='{{$action}}' alt='{{$key}}'></i></th>
+                    <th class="p-1">
+                        <i class='bg-gray-700 text-gray-100 subpixel-antialiased p-2 rounded-lg {{$action}}' alt='{{$key}}'></i>
+                    </th>
                 @endforeach
                 @endif
                 @endforeach
@@ -26,62 +28,56 @@
             $looper = $useActions ? $permissionGroups : $permissions;
             @endphp
             @foreach ($looper as $permission)
-                <tr class="@if($loop->even) bg-gray-100 @endif">
-                    <td class="border px-4 py-2 bg-gray-200">
+                <tr>
+                    <td class="p-1">
                         @livewire("permission-ui::permission-actions", ["permission" => $permission], key("permission-" . ($useActions ? $permission : $permission->id)))
                     </td>
                     @foreach($roles as $role)
                         @if($useActions)
                             @foreach($actions as $key => $action)
                                 @php $perm = $permissions->where("name", "=", $permission . "-" . $key)->first(); @endphp
-                                <td class="border px-4 py-2 text-center">
+                                <td class="p-1 text-center">
                                     @if($perm instanceof \Spatie\Permission\Models\Permission)
                                         @if($role->hasPermissionTo($perm->name))
                                             <i
                                                 wire:key='{{$role->id . "-" . $perm->id}}'
-                                                wire:loading.class.remove="fa-check cursor-pointer text-green-600"
-                                                wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                                wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$perm->id}})"
-                                                class="fa fa-check text-lg font-bold text-green-600 cursor-pointer"
-                                                style="min-width: 20px;"></i>
+                                                wire:loading.class.remove="fa-check cursor-pointer"
+                                                wire:loading.class="cursor-wait fa-hourglass-half"
+                                                class="bg-green-500 shadow-sm subpixel-antialiased p-2 rounded-lg fas fa-check text-lg font-bold text-white cursor-pointer"
+                                                wire:click="togglePermission({{$role->id}}, {{$perm->id}})"></i>
                                         @else
                                             <i
                                                 wire:key='{{$role->id . "-" . $perm->id}}'
-                                                wire:loading.class.remove="fa-times cursor-pointer text-red-600"
-                                                wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                                wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$perm->id}})"
-                                                class="fa fa-times text-lg font-bold text-red-600 cursor-pointer"
-                                                style="min-width: 20px;"></i>
+                                                wire:loading.class.remove="fa-times cursor-pointer"
+                                                wire:loading.class="cursor-wait fa-hourglass-half"
+                                                class="bg-red-600 shadow-sm subpixel-antialiased p-2 rounded-lg fas fa-times text-lg font-bold text-white cursor-pointer"
+                                                wire:click="togglePermission({{$role->id}}, {{$perm->id}})"></i>
                                         @endif
                                     @else
-                                        <i class='fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'
-                                        style="min-width: 20px;"></i>
+                                        <i class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
                                     @endif
                                 </td>
                                 @endforeach
                         @else
-                        <td class="border px-4 py-2 text-center">
+                        <td class="p-1 text-center">
                             @if($permission instanceof \Spatie\Permission\Models\Permission)
                                 @if($role->hasPermissionTo($permission->name))
                                     <i
                                         wire:key='{{$role->id . "-" . $permission->id}}'
-                                        wire:loading.class.remove="fa-check cursor-pointer text-green-600"
-                                        wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                        wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
-                                        class="fa fa-check text-lg font-bold text-green-600 cursor-pointer"
-                                        style="min-width: 20px;"></i>
+                                        wire:loading.class.remove="fa-check cursor-pointer bg-green-500 text-white"
+                                        wire:loading.class="cursor-wait fa-hourglass bg-gray-300 text-gray-800"
+                                        class="bg-green-500 subpixel-antialiased p-2 rounded-lg fa fa-check text-lg font-bold text-white cursor-pointer"
+                                        wire:click="togglePermission({{$role->id}}, {{$permission->id}})"></i>
                                 @else
                                     <i
                                         wire:key='{{$role->id . "-" . $permission->id}}'
-                                        wire:loading.class.remove="fa-times cursor-pointer text-red-600"
-                                        wire:loading.class="cursor-wait fa-hourglass text-gray-300"
-                                        wire:click="$emitSelf('togglePermission', {{$role->id}}, {{$permission->id}})"
-                                        class="fa fa-times text-lg font-bold text-red-600 cursor-pointer"
-                                        style="min-width: 20px;"></i>
+                                        wire:loading.class.remove="fa-times cursor-pointer bg-red-600 text-white"
+                                        wire:loading.class="cursor-wait fa-hourglass bg-gray-300 text-gray-800"
+                                        class="bg-red-600 subpixel-antialiased p-2 rounded-lg fa fa-times text-lg font-bold text-white cursor-pointer"
+                                        wire:click="togglePermission({{$role->id}}, {{$permission->id}})"></i>
                                 @endif
                             @else
-                                <i class='fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'
-                                style="min-width: 20px;"></i>
+                                <i class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
                             @endif
                         </td>
                         @endif

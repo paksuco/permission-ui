@@ -39,6 +39,13 @@ return [
         'create' => 'fas fa-plus-circle',
         'read' => 'fas fa-eye',
         'update' => 'fas fa-pencil-alt',
-        'delete' => 'fas fa-trash-alt'
-    ]
+        'delete' => 'fas fa-trash-alt',
+    ],
+
+    /**
+     * Separator between permissions and actions, for example when permission is "posts" and action is "create",
+     * The concatenated output will be "posts_create" when separator is a "_" character, and "posts-create" when the
+     * separator is a "-" character.
+     */
+    'permission_action_separator' => '-',
 ];

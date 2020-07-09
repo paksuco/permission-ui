@@ -2,7 +2,9 @@
 
 namespace Paksuco\Permission\Components;
 
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleActions extends Component
@@ -19,17 +21,37 @@ class RoleActions extends Component
 
     public function updateRole()
     {
+        if ($this->name === $this->role->name) {
+            return;
+        }
+
         $this->resetErrorBag();
         $this->resetValidation();
-
-        $this->validate(["name" => "required|filled|unique:roles,name,".$this->role->id.",id"], [], ["name" => "role name"]);
-        $this->role->name = $this->name;
+        $buffered = $this->name;
+        $this->name = $this->role->name;
+        Validator::make(["name" => $buffered], ["name" => "required|filled|unique:roles,name," . $this->role->id . ",id"], [], ["name" => "role name"])->validate();
+        $this->role->name = $buffered;
+        $this->name = $buffered;
         $this->role->save();
+        $this->emit("refreshMappings");
+    }
+
+    public function allowAll()
+    {
+        $this->role->givePermissionTo(Permission::all());
+        $this->emit("refreshMappings");
+    }
+
+    public function disallowAll()
+    {
+        $this->role->revokePermissionTo(Permission::all());
+        $this->emit("refreshMappings");
     }
 
     public function deleteRole()
     {
-        $this->emitUp("deleteRole", $this->role->id);
+        $this->role->delete();
+        $this->emit("refreshMappings");
     }
 
     public function render()
