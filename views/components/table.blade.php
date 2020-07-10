@@ -4,6 +4,9 @@
             width: 100%;
             min-width: 34px;
         }
+        [x-cloak] {
+            display: none;
+        }
     </style>
     {{-- You can include these forms into a modal --}}
     @include("permission-ui::components.partials.new-role")
@@ -11,11 +14,3 @@
     {{-- The roles/permissions matrix table --}}
     @include("permission-ui::components.partials.mappings")
 </div>
-
-@push("footer-scripts")
-    <script>
-        window.livewire.on('refreshMappings', () => {
-            document.body.click();
-        });
-    </script>
-@endpush

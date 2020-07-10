@@ -87,6 +87,7 @@ class Permissions extends Component
     public function refreshMappings()
     {
         $this->updated = !$this->updated;
+        $this->dispatchBrowserEvent("refresh-mappings", null);
     }
 
     public function render()
