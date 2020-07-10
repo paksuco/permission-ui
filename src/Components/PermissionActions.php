@@ -13,6 +13,7 @@ class PermissionActions extends Component
     public $useActions;
     public $actions;
     public $permission;
+    public $separator;
     public $name;
 
     public function mount($permission)
@@ -21,6 +22,8 @@ class PermissionActions extends Component
         $this->name = $permission;
         $this->useActions = config("permission-ui.use_common_actions", false);
         $this->actions = config("permission-ui.actions", []);
+        $this->separator = config("permission-ui.permission_action_separator", "-");
+
         if (count($this->actions) === 0) {
             $this->useActions = false;
         }
@@ -33,7 +36,7 @@ class PermissionActions extends Component
         if ($this->useActions) {
             $actions = array_keys($this->actions);
             foreach ($actions as $action) {
-                $permissions[] = $this->permission . "-" . $action;
+                $permissions[] = $this->permission . $this->separator . $action;
             }
         } else {
             $permissions[] = $this->permission;
@@ -75,8 +78,8 @@ class PermissionActions extends Component
         $this->resetValidation();
 
         $firstAction = $this->useActions ? collect($this->actions)->keys()->first() : "";
-        $newnameSuffixed = $this->useActions ? $newname . "-" . $firstAction : $newname;
-        $oldnameSuffixed = $this->useActions ? $oldname . "-" . $firstAction : $oldname;
+        $newnameSuffixed = $this->useActions ? $newname . $this->separator . $firstAction : $newname;
+        $oldnameSuffixed = $this->useActions ? $oldname . $this->separator . $firstAction : $oldname;
 
         $referencePermission = SpatiePermission::where("name", "=", $oldnameSuffixed)->first();
 
@@ -100,9 +103,9 @@ class PermissionActions extends Component
         if ($this->useActions) {
             $actions = array_keys($this->actions);
             foreach ($actions as $action) {
-                $perm = SpatiePermission::where("name", "=", $oldname . "-" . $action)->first();
+                $perm = SpatiePermission::where("name", "=", $oldname . $this->separator . $action)->first();
                 if ($perm instanceof SpatiePermission) {
-                    $perm->name = $newname . "-" . $action;
+                    $perm->name = $newname . $this->separator . $action;
                     $perm->save();
                 }
             }

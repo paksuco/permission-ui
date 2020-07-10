@@ -80,6 +80,7 @@ class PermissionServiceProvider extends ServiceProvider
         Livewire::component('permission-ui::permissions', \Paksuco\Permission\Components\Permissions::class);
         Livewire::component('permission-ui::permission-actions', \Paksuco\Permission\Components\PermissionActions::class);
         Livewire::component('permission-ui::role-actions', \Paksuco\Permission\Components\RoleActions::class);
+        Livewire::component('permission-ui::toggle-button', \Paksuco\Permission\Components\ToggleButton::class);
     }
 
     private function handleMigrations()

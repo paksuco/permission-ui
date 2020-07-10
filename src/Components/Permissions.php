@@ -12,14 +12,16 @@ class Permissions extends Component
     public $permissionName;
     public $useActions;
     public $actions;
+    public $separator;
     public $updated;
 
-    protected $listeners = ['refreshMappings'];
+    protected $listeners = ['refreshMappings', 'togglePermission'];
 
     public function mount()
     {
         $this->useActions = config("permission-ui.use_common_actions", false);
         $this->actions = config("permission-ui.actions", []);
+        $this->separator = config("permission-ui.permission_action_separator", "-");
         if (count($this->actions) === 0) {
             $this->useActions = false;
         }
@@ -48,7 +50,7 @@ class Permissions extends Component
         $this->resetValidation();
 
         $firstAction = $this->useActions ? collect($this->actions)->keys()->first() : "";
-        $this->permissionNameSuffixed = $this->useActions ? $this->permissionName . "-" . $firstAction : $this->permissionName;
+        $this->permissionNameSuffixed = $this->useActions ? $this->permissionName . $this->separator . $firstAction : $this->permissionName;
 
         $this->validate([
             'permissionName' => "required|min:3",
@@ -60,7 +62,7 @@ class Permissions extends Component
 
         if ($this->useActions) {
             foreach (array_keys($this->actions) as $key) {
-                SpatiePermission::create(["name" => $this->permissionName . "-" . $key]);
+                SpatiePermission::create(["name" => $this->permissionName . $this->separator . $key]);
             }
         } else {
             SpatiePermission::create(["name" => $this->permissionName]);
@@ -95,11 +97,14 @@ class Permissions extends Component
         $roles = SpatieRole::with("permissions")->get();
         $firstAction = collect($this->actions)->keys()->first();
         $permissions = SpatiePermission::all();
+        $permissionGroups = collect();
 
-        $permissionGroups = SpatiePermission::where('name', 'like', '%-' . $firstAction)->get()
-            ->transform(function ($permission) use ($firstAction) {
-                return substr($permission->name, 0, strlen($permission->name) - strlen($firstAction) - 1);
-            });
+        if ($this->useActions) {
+            $permissionGroups = SpatiePermission::where('name', 'like', '%' . $this->separator . $firstAction)->get()
+                ->transform(function ($permission) use ($firstAction) {
+                    return substr($permission->name, 0, strlen($permission->name) - strlen($firstAction) - 1);
+                });
+        }
 
         return view("permission-ui::components.table", [
             "roles" => $roles,
