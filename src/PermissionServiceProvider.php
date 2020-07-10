@@ -29,22 +29,11 @@ class PermissionServiceProvider extends ServiceProvider
         $this->handleTranslations();
         $this->handleRoutes();
 
-        Event::listen("paksuco.menu.beforeRender", function($key, $container){
-            if($key == "admin"){
+        Event::listen("paksuco.menu.beforeRender", function ($key, $container) {
+            if ($key == "admin") {
                 $container->addItem("Permission", route("paksuco.permissions"), "fa fa-lock");
             }
         });
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        // Bind any implementations.
-
     }
 
     /**
@@ -68,14 +57,14 @@ class PermissionServiceProvider extends ServiceProvider
 
     private function handleTranslations()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'permission-ui');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'permission-ui');
     }
 
     private function handleViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../views', 'permission-ui');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'permission-ui');
 
-        $this->publishes([__DIR__.'/../views' => base_path('resources/views/vendor/permission-ui')]);
+        $this->publishes([__DIR__ . '/../views' => base_path('resources/views/vendor/permission-ui')]);
 
         Livewire::component('permission-ui::permissions', \Paksuco\Permission\Components\Permissions::class);
         Livewire::component('permission-ui::permission-actions', \Paksuco\Permission\Components\PermissionActions::class);
@@ -89,6 +78,6 @@ class PermissionServiceProvider extends ServiceProvider
 
     private function handleRoutes()
     {
-        include __DIR__.'/../routes/routes.php';
+        include __DIR__ . '/../routes/routes.php';
     }
 }
