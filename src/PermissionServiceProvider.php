@@ -81,3 +81,10 @@ class PermissionServiceProvider extends ServiceProvider
         include __DIR__ . '/../routes/routes.php';
     }
 }
+
+if (!function_exists("base_path")) {
+    function base_path($path)
+    {
+        return \Illuminate\Support\Facades\App::basePath($path);
+    }
+}

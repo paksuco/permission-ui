@@ -1,43 +1,48 @@
 {
-  "name": "paksuco/permission-ui",
-  "description": "UI for Spatie's Laravel Permission package",
-  "keywords": ["spatie", "permission", "ui", "laravel"],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Taha PAKSU",
-      "email": "tpaksu@gmail.com",
-      "homepage": "http://www.rettica.com"
-    }
-  ],
-  "require": {
-    "php": ">=7.0.0",
-    "illuminate/support": "^7.0",
-    "illuminate/config": "^7.0",
-    "illuminate/routing": "^7.0",
-    "spatie/laravel-permission": "^3.13",
-    "livewire/livewire": "^1.2"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^6.3"
-  },
-  "autoload": {
-    "psr-4": {
-      "Paksuco\\Permission\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Paksuco\\Permission\\Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "laravel": {
-        "providers": [
-            "Paksuco\\Permission\\PermissionServiceProvider"
-        ]
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "name": "paksuco/permission-ui",
+    "description": "UI for Spatie's Laravel Permission package",
+    "keywords": [
+        "spatie",
+        "permission",
+        "ui",
+        "laravel"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Taha PAKSU",
+            "email": "tpaksu@gmail.com",
+            "homepage": "http://www.rettica.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/support": "^7.0",
+        "illuminate/config": "^7.0",
+        "illuminate/routing": "^7.0",
+        "spatie/laravel-permission": "^3.13",
+        "livewire/livewire": "^1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Paksuco\\Permission\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Paksuco\\Permission\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Paksuco\\Permission\\PermissionServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
