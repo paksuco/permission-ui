@@ -1,4 +1,4 @@
-<div class="mb-3 p-3">
+<div class="mb-3 p-3 w-full overflow-x-auto box-border">
     <h2 class="text-xl font-bold text-black border-b border-blue-800 mb-3">@lang("Current Roles & Permissions")</h2>
     <table class="table paksuco-permissions">
         <thead>
