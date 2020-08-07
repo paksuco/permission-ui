@@ -1,5 +1,5 @@
 <h2 class="text-xl font-bold text-black border-b border-blue-800 mb-3">@lang("Current Roles & Permissions")</h2>
-<div class="container overflow-x-auto">
+<div class="overflow-x-auto">
     <table class="table paksuco-permissions">
         <thead>
             <tr>

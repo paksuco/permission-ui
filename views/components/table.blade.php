@@ -1,4 +1,4 @@
-<div class="container p-4">
+<div class="p-4">
     <style>
         .paksuco-permissions i {
             width: 100%;
