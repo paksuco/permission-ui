@@ -12,11 +12,10 @@
         &nbsp;
     </div>
     <div class="w-1/4 p-2 border border-r-0">
-        <h3 class="font-bold mb-2">Roles</h3>
         @include("permission-ui::components.theme-column.partials.role-list")
         @include("permission-ui::components.theme-column.partials.new-role")
     </div>
-    <div class="w-3/4 bg-white border">
+    <div class="w-3/4 border">
         @include("permission-ui::components.theme-column.partials.mappings", ["role" => $role])
         @include("permission-ui::components.theme-column.partials.new-permission")
     </div>

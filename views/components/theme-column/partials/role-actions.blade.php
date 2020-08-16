@@ -6,17 +6,17 @@
     @refresh-mappings.window="open_{{$key}} = false">
     <div>
         <button @click="open_{{$key}} = !open_{{$key}}" type="button"
-            class="inline-flex text-gray-500 border-0 rounded-none"
+            class="inline-flex border-0 rounded-none"
             aria-haspopup="true" aria-expanded="true">
             <i class="fa fa-ellipsis-v"></i>
         </button>
     </div>
-    <div x-show="open_{{$key}}" x-cloak x-description="Dropdown panel, show/hide based on dropdown state."
+    <div x-show="open_{{$key}}" x-cloak
         x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-0"
         x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-0"
-        class="origin-top-left absolute left-full top-0 mt-2 w-full rounded-md shadow-lg z-10 min-w-full"
+        class="origin-top-left absolute left-full top-0 mt-2 w-full rounded-md shadow-lg z-10 min-w-full text-gray-700"
         style="width: 200px">
         <div class="rounded-md bg-white" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             <div class="px-4 py-2 font-light text-lg rounded-t-md">
@@ -37,25 +37,25 @@
                 </div>
                 <div class="w-full mb-1">
                     <button type="button" wire:click="updateRole" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
-                            hover:bg-indigo-200 focus:outline-none" role="menuitem"
+                            hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
                         wire:loading.attr="disabled">@lang("Update Name")
                     </button>
                 </div>
                 <div class="w-full mb-1">
                     <button type="button" wire:click="allowAll" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
-                    hover:bg-indigo-200 focus:outline-none" role="menuitem" wire:loading.attr="disabled">@lang("Grant
+                    hover:bg-indigo-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">@lang("Grant
                         All Permissions")
                     </button>
                 </div>
                 <div class="w-full mb-1">
                     <button type="button" wire:click="disallowAll" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
-                    hover:bg-indigo-200 focus:outline-none" role="menuitem" wire:loading.attr="disabled">@lang("Revoke
+                    hover:bg-indigo-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">@lang("Revoke
                         All Permissions")
                     </button>
                 </div>
                 <div class="w-full">
                     <button type="button" wire:click="deleteRole" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
-                    hover:bg-indigo-200 focus:outline-none" role="menuitem" wire:loading.attr="disabled">@lang("Delete
+                    hover:bg-indigo-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">@lang("Delete
                         Role")
                     </button>
                 </div>

@@ -1,5 +1,5 @@
 @isset($role)
-<table class="table paksuco-permissions border-collapse">
+<table class="table paksuco-permissions border-collapse bg-white mr-4">
     <thead>
         <tr>
             <th class="px-4 border-b border-r bg-cool-gray-100 text-left">@lang("Permissions")</th>
@@ -7,7 +7,7 @@
             @foreach($actions as $key => $action)
             <th class="p-1 border-b border-r bg-cool-gray-200 font-normal text-sm @if($loop->last) border-r-0 @endif">
                 <i class='text-gray-600 subpixel-antialiased p-2 text-lg {{$action}}'
-                    alt='{{$key}}'></i>&nbsp;{{$key}}
+                    alt='{{$key}}'></i><div class="capitalize">{{$key}}</div>
             </th>
             @endforeach
             @endif
@@ -26,7 +26,7 @@
             @if($useActions)
             @foreach($actions as $key => $action)
             @php $perm = $permissions->where("name", "=", $permission . "-" . $key)->first(); @endphp
-            <td class="p-1 border text-center @if($loop->last) border-r-0 @endif">
+            <td class="p-1 border text-center">
                 @if($perm instanceof \Spatie\Permission\Models\Permission)
                 @include("permission-ui::components.theme-column.partials.button", ["role" => $role, "permission" =>
                 $perm])
