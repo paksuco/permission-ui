@@ -22,6 +22,11 @@ return [
     'template_to_extend' => "layouts.app",
 
     /**
+     * Theme to be used, currently grid and column
+     */
+    'theme' => 'column',
+
+    /**
      * Prevent some roles and permissions from modification and/or deletion,
      * if your application won't live without them, please set them here
      */

@@ -56,6 +56,6 @@ class RoleActions extends Component
 
     public function render()
     {
-        return view("permission-ui::components.partials.role-actions", ["role" => $this->role]);
+        return view("permission-ui::components.theme-".config("permission-ui.theme").".partials.role-actions", ["role" => $this->role]);
     }
 }

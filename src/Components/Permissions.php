@@ -14,8 +14,9 @@ class Permissions extends Component
     public $actions;
     public $separator;
     public $updated;
+    public $role;
 
-    protected $listeners = ['refreshMappings', 'togglePermission'];
+    protected $listeners = ['refreshMappings', 'togglePermission', 'setActiveRole'];
 
     public function mount()
     {
@@ -86,6 +87,11 @@ class Permissions extends Component
         }
     }
 
+    public function setActiveRole($id)
+    {
+        $this->role = SpatieRole::findById($id);
+    }
+
     public function refreshMappings()
     {
         $this->updated = !$this->updated;
@@ -106,7 +112,7 @@ class Permissions extends Component
                 });
         }
 
-        return view("permission-ui::components.table", [
+        return view("permission-ui::components.theme-".config('permission-ui.theme').".table", [
             "roles" => $roles,
             "permissions" => $permissions,
             "permissionGroups" => $permissionGroups,
