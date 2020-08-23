@@ -1,17 +1,18 @@
-@php $key = \Illuminate\Support\Str::random(6) @endphp
+@php $role_key = \Illuminate\Support\Str::random(6) @endphp
 <div class="relative permission-ui-dropdown"
-    x-data="{ open_{{$key}}: false }"
-    @keydown.window.escape="open_{{$key}} = false"
-    @click.away="open_{{$key}} = false"
-    @refresh-mappings.window="open_{{$key}} = false">
+    x-data="{ open: false }"
+    :key='"{{$role_key}}"'
+    @keydown.window.escape="open = false"
+    @click.away="open = false"
+    @refresh-mappings.window="open = false">
     <div>
-        <button @click="open_{{$key}} = !open_{{$key}}" type="button"
+        <button @click="open = !open" type="button"
             class="inline-flex border-0 rounded-none"
             aria-haspopup="true" aria-expanded="true">
             <i class="fa fa-ellipsis-v"></i>
         </button>
     </div>
-    <div x-show="open_{{$key}}" x-cloak
+    <div x-show="open" x-cloak
         x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-0"
         x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="transform opacity-100 scale-100"

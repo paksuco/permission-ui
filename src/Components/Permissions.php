@@ -70,6 +70,8 @@ class Permissions extends Component
         }
 
         $this->permissionName = "";
+
+        $this->refreshMappings();
     }
 
     public function togglePermission($roleId, $permissionId)
@@ -85,6 +87,7 @@ class Permissions extends Component
         } else {
             $role->givePermissionTo($permission->name);
         }
+        $this->refreshMappings();
     }
 
     public function setActiveRole($id)
