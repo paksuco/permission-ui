@@ -8,7 +8,7 @@
             wire:click="$emitUp('setActiveRole', {{$roleRecord->id}})">
             <i class="fa fa-check text-indigo-500 mr-3"></i>
             <div class="flex-1 capitalize">{{$roleRecord->name}}</div>
-            <div class="text-gray-500 @isset($role) @if($role == $roleRecord->id) text-indigo-200 @endif @endisset">
+            <div class="@isset($role) @if($role == $roleRecord->id) text-white @else text-gray-500 @endif @else text-gray-500 @endisset">
                 @livewire("permission-ui::role-actions", [
                     "role" => $roleRecord
                 ], key("role-" . $roleRecord->id))

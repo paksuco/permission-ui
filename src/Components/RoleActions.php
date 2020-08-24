@@ -30,7 +30,18 @@ class RoleActions extends Component
         }
         $buffered = $this->name;
         $this->name = $role->name;
-        Validator::make(["name" => $buffered], ["name" => "required|filled|unique:roles,name," . $role->id . ",id"], [], ["name" => "role name"])->validate();
+        Validator::make(
+            [
+                "name" => $buffered
+            ],
+            [
+                "name" => "required|filled|unique:roles,name," . $role->id . ",id"
+            ],
+            [],
+            [
+                "name" => "role name"
+            ]
+        )->validate();
         $role->name = $buffered;
         $this->name = $buffered;
         $role->save();
@@ -59,6 +70,6 @@ class RoleActions extends Component
     public function render()
     {
         $role = Role::find($this->role);
-        return view("permission-ui::components.theme-" . config("permission-ui.theme") . ".partials.role-actions", ["role" => $role]);
+        return view("permission-ui::components.theme-" . config("permission-ui.theme") . ".partials.role-actions", ["roleModel" => $role]);
     }
 }

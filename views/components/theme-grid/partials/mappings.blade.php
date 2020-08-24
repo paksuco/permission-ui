@@ -6,7 +6,7 @@
                 <th></th>
                 @foreach($roles as $role)
                 <th colspan="{{$useActions ? count($actions) : 1}}" class="p-1 font-normal pr-3">
-                    @livewire("permission-ui::role-actions", ["role" => $role], key("role-" . $role->id))
+                    @livewire("permission-ui::role-actions", ["role" => $role], key("role-" . $role))
                 </th>
                 @endforeach
             </tr>
@@ -31,8 +31,9 @@
             @foreach ($looper as $permission)
             <tr>
                 <td class="p-1 pr-3">
-                    @livewire("permission-ui::permission-actions", ["permission" => $permission], key("permission-" .
-                    ($useActions ? $permission : $permission->id)))
+                    @livewire("permission-ui::permission-actions", [
+                        "permission" => $permission
+                    ], key("permission-" . ($useActions ? $permission : $permission->id)))
                 </td>
                 @foreach($roles as $role)
                 @if($useActions)
@@ -40,7 +41,10 @@
                 @php $perm = $permissions->where("name", "=", $permission . "-" . $key)->first(); @endphp
                 <td class="p-1 text-center @if($loop->last) pr-3 @endif">
                     @if($perm instanceof \Spatie\Permission\Models\Permission)
-                    @livewire("permission-ui::button", ["role" => $role->id, "permission" => $perm->id, "status" => $role->hasPermissionTo($perm->name)], key("permission-$perm->id-$role->id"))
+                    @livewire("permission-ui::button", [
+                        "role" => $role->id,
+                        "permission" => $perm->id
+                    ], key("permission-button-$perm->id-$role"))
                     @else
                     <i
                        class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
@@ -50,7 +54,10 @@
                 @else
                 <td class="p-1 text-center">
                     @if($permission instanceof \Spatie\Permission\Models\Permission)
-                    @livewire("permission-ui::button", ["role" => $role->id, "permission" => $perm->id, "status" => $role->hasPermissionTo($permission->name)], key("permission-$permission->id-$role->id"))
+                    @livewire("permission-ui::button", [
+                    "role" => $role->id,
+                    "permission" => $permission->id
+                ], key("permission-button-$permission->id-$role"))
                     @else
                     <i
                        class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>

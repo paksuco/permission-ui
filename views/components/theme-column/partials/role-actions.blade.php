@@ -5,12 +5,10 @@
     @keydown.window.escape="open = false"
     @click.away="open = false"
     @refresh-mappings.window="open = false">
-    <div>
-        <button @click="open = !open" type="button"
-            class="inline-flex border-0 rounded-none px-1 focus:shadow-none focus:outline-none text-gray-500"
-            aria-haspopup="true" aria-expanded="true">
-            <i class="fa fa-ellipsis-v"></i>
-        </button>
+    <div @click="open = !open"
+        class="inline-flex border-0 rounded-none px-1 focus:shadow-none focus:outline-none"
+        aria-haspopup="true" aria-expanded="true">
+        <i class="fa fa-ellipsis-v"></i>
     </div>
     <div x-show="open" x-cloak
         x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-0"

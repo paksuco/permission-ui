@@ -18,29 +18,29 @@ class Button extends Component
     {
         $this->role = $role;
         $this->permission = $permission;
-        $roleModel = Role::find($role);
-        $permissionModel = Permission::find($permission);
-        $this->status = $roleModel->hasPermissionTo($permissionModel->name);
+        $buttonRole = Role::find($role);
+        $buttonPermission = Permission::find($permission);
+        $this->status = $buttonRole->hasPermissionTo($buttonPermission->name);
     }
 
     public function togglePermission()
     {
-        $roleModel = Role::find($this->role);
-        $permissionModel = Permission::find($this->permission);
-        if ($roleModel->hasPermissionTo($permissionModel->name)) {
-            $roleModel->revokePermissionTo($permissionModel);
+        $buttonRole = Role::find($this->role);
+        $buttonPermission = Permission::find($this->permission);
+        if ($buttonRole->hasPermissionTo($buttonPermission->name)) {
+            $buttonRole->revokePermissionTo($buttonPermission);
             $this->status = false;
         } else {
-            $roleModel->givePermissionTo($permissionModel->name);
+            $buttonRole->givePermissionTo($buttonPermission->name);
             $this->status = true;
         }
     }
 
     public function refreshButton()
     {
-        $roleModel = Role::find($this->role);
-        $permissionModel = Permission::find($this->permission);
-        $this->status = $roleModel->hasPermissionTo($permissionModel->name);
+        $buttonRole = Role::find($this->role);
+        $buttonPermission = Permission::find($this->permission);
+        $this->status = $buttonRole->hasPermissionTo($buttonPermission->name);
     }
 
     public function getKey()
