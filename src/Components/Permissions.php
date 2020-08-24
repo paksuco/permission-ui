@@ -16,7 +16,7 @@ class Permissions extends Component
     public $updated;
     public $role;
 
-    protected $listeners = ['refreshMappings', 'togglePermission', 'setActiveRole'];
+    protected $listeners = ['refreshMappings', 'togglePermission', 'setActiveRole', 'deleteRole'];
 
     public function mount()
     {
@@ -27,6 +27,7 @@ class Permissions extends Component
             $this->useActions = false;
         }
         $this->updated = false;
+        $this->role = SpatieRole::first()->id;
     }
 
     public function saveNewRole()
@@ -74,31 +75,22 @@ class Permissions extends Component
         $this->refreshMappings();
     }
 
-    public function togglePermission($roleId, $permissionId)
-    {
-        $this->resetErrorBag();
-        $this->resetValidation();
-
-        $role = SpatieRole::findOrFail($roleId);
-        $permission = SpatiePermission::findOrFail($permissionId);
-
-        if ($role->hasPermissionTo($permission->name)) {
-            $role->revokePermissionTo($permission->name);
-        } else {
-            $role->givePermissionTo($permission->name);
-        }
-        $this->refreshMappings();
-    }
-
     public function setActiveRole($id)
     {
-        $this->role = SpatieRole::findById($id);
+        $this->role = $id;
+    }
+
+    public function deleteRole($id)
+    {
+        SpatieRole::where("id", $id)->first()->delete();
+        $this->render();
     }
 
     public function refreshMappings()
     {
         $this->updated = !$this->updated;
-        $this->dispatchBrowserEvent("refresh-mappings", null);
+        $this->dispatchBrowserEvent("refresh-mappings");
+        $this->emit("refreshButton");
     }
 
     public function render()

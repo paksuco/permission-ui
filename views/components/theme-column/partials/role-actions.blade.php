@@ -7,7 +7,7 @@
     @refresh-mappings.window="open = false">
     <div>
         <button @click="open = !open" type="button"
-            class="inline-flex border-0 rounded-none"
+            class="inline-flex border-0 rounded-none px-1 focus:shadow-none focus:outline-none text-gray-500"
             aria-haspopup="true" aria-expanded="true">
             <i class="fa fa-ellipsis-v"></i>
         </button>

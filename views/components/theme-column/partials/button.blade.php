@@ -1,11 +1,6 @@
-@if($role->hasPermissionTo($permission->name))
-<i class="bg-green-500 subpixel-antialiased p-2 rounded-lg fa fa-check
-    text-lg font-bold text-white cursor-pointer"
-    wire:key='button-{{$role->id}}-{{$permission->id}}'
-    wire:click="togglePermission({{$role->id}}, {{$permission->id}})"></i>
-@else
-<i class="bg-red-600 subpixel-antialiased p-2 rounded-lg fa fa-ban
-    text-lg font-bold text-white cursor-pointer"
-    wire:key='button-{{$role->id}}-{{$permission->id}}'
-    wire:click="togglePermission({{$role->id}}, {{$permission->id}})"></i>
-@endif
+<div>
+    <i class="subpixel-antialiased p-2 rounded-lg fa text-lg font-bold text-white cursor-pointer
+        @if($status) bg-green-500 fa fa-check @else bg-red-600 fa fa-ban @endif "
+        wire:key='getKey()' wire:click="togglePermission()">
+    </i>
+</div>

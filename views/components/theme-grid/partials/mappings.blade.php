@@ -1,5 +1,5 @@
 <h2 class="text-xl font-bold text-black border-b border-blue-800 mb-3">@lang("Current Roles & Permissions")</h2>
-<div class="overflow-x-auto">
+<div class="overflow-x-visible">
     <table class="table paksuco-permissions">
         <thead>
             <tr>
@@ -40,7 +40,7 @@
                 @php $perm = $permissions->where("name", "=", $permission . "-" . $key)->first(); @endphp
                 <td class="p-1 text-center @if($loop->last) pr-3 @endif">
                     @if($perm instanceof \Spatie\Permission\Models\Permission)
-                    @include("permission-ui::components.theme-grid.partials.button", ["role" => $role, "permission" => $perm])
+                    @livewire("permission-ui::button", ["role" => $role->id, "permission" => $perm->id, "status" => $role->hasPermissionTo($perm->name)], key("permission-$perm->id-$role->id"))
                     @else
                     <i
                        class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
@@ -50,8 +50,7 @@
                 @else
                 <td class="p-1 text-center">
                     @if($permission instanceof \Spatie\Permission\Models\Permission)
-                    @include("permission-ui::components.theme-grid.partials.button", ["role" => $role, "permission" =>
-                    $permission])
+                    @livewire("permission-ui::button", ["role" => $role->id, "permission" => $perm->id, "status" => $role->hasPermissionTo($permission->name)], key("permission-$permission->id-$role->id"))
                     @else
                     <i
                        class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>

@@ -15,47 +15,50 @@ class RoleActions extends Component
 
     public function mount(Role $role)
     {
-        $this->role = $role;
+        $this->role = $role->id;
         $this->name = $role->name;
     }
 
     public function updateRole()
     {
-        if ($this->name === $this->role->name) {
-            return;
-        }
-
         $this->resetErrorBag();
         $this->resetValidation();
+        $role = Role::find($this->role);
+        if ($this->name === $role->name) {
+            $this->emitUp("refreshMappings");
+            return;
+        }
         $buffered = $this->name;
-        $this->name = $this->role->name;
-        Validator::make(["name" => $buffered], ["name" => "required|filled|unique:roles,name," . $this->role->id . ",id"], [], ["name" => "role name"])->validate();
-        $this->role->name = $buffered;
+        $this->name = $role->name;
+        Validator::make(["name" => $buffered], ["name" => "required|filled|unique:roles,name," . $role->id . ",id"], [], ["name" => "role name"])->validate();
+        $role->name = $buffered;
         $this->name = $buffered;
-        $this->role->save();
-        $this->emit("refreshMappings");
-    }
-
-    public function allowAll()
-    {
-        $this->role->givePermissionTo(Permission::all());
-        $this->emit("refreshMappings");
-    }
-
-    public function disallowAll()
-    {
-        $this->role->revokePermissionTo(Permission::all());
-        $this->emit("refreshMappings");
+        $role->save();
+        $this->emitUp("refreshMappings");
     }
 
     public function deleteRole()
     {
-        $this->role->delete();
-        $this->emit("refreshMappings");
+        $this->emitUp("deleteRole", ["id" => $this->role]);
+    }
+
+    public function allowAll()
+    {
+        $role = Role::find($this->role);
+        $role->givePermissionTo(Permission::all());
+        $this->emitUp("refreshMappings");
+    }
+
+    public function disallowAll()
+    {
+        $role = Role::find($this->role);
+        $role->revokePermissionTo(Permission::all());
+        $this->emitUp("refreshMappings");
     }
 
     public function render()
     {
-        return view("permission-ui::components.theme-".config("permission-ui.theme").".partials.role-actions", ["role" => $this->role]);
+        $role = Role::find($this->role);
+        return view("permission-ui::components.theme-" . config("permission-ui.theme") . ".partials.role-actions", ["role" => $role]);
     }
 }
