@@ -7,12 +7,12 @@
     @refresh-mappings.window="open = false">
     <div class="flex items-center">
         <button @click="open = !open" type="button"
-            class="inline-flex border-0 p-2 mr-3 focus:shadow-none focus:outline-none text-gray-500 bg-white rounded-full"
+            class="flex border-0 p-2 mr-3 focus:shadow-none focus:outline-none text-gray-500 bg-white rounded-full"
             aria-haspopup="true"
             aria-expanded="true">
             <i class="fa fa-ellipsis-h" style="min-width: 0"></i>
         </button>
-        <div class="flex-1">{{$name}}</div>
+        <div class="flex-1 leading-4">{{$name}}</div>
     </div>
     <div x-show="open" x-cloak x-description="Dropdown panel, show/hide based on dropdown state."
         x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-0"
