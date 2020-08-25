@@ -7,7 +7,7 @@
     @refresh-mappings.window="open = false">
     <div class="flex items-center">
         <button @click="open = !open" type="button"
-            class="inline-flex border-0 rounded-none px-1 pr-3 focus:shadow-none focus:outline-none text-gray-500"
+            class="inline-flex border-0 p-2 mr-3 focus:shadow-none focus:outline-none text-gray-500 bg-white rounded-full"
             aria-haspopup="true"
             aria-expanded="true">
             <i class="fa fa-ellipsis-h" style="min-width: 0"></i>
@@ -21,7 +21,7 @@
         x-transition:leave-end="transform opacity-0 scale-0"
         class="origin-top-left absolute left-2 top-0 mt-2 rounded-md shadow-lg z-10
          text-gray-700"
-        style="width: 200px">
+        style="width: 270px">
         <div class="rounded-md bg-white" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             <div class="px-4 py-2 font-light text-lg rounded-t-md">
                 @lang("Edit Permission")
@@ -42,24 +42,28 @@
                 <div class="w-full mb-1">
                     <button type="button" wire:click="updatePermission" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
                     hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
-                        wire:loading.attr="disabled">@lang("Update")
+                        wire:loading.attr="disabled"><b>@lang("Update")</b>
+                        <p class="text-xs">Changes the name of the permission and saves it to the database</p>
                     </button>
                 </div>
                 <div class="w-full mb-1">
                     <button type="button" wire:click="allowAll" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
                     hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
-                        wire:loading.attr="disabled">@lang("Authorize All")
+                        wire:loading.attr="disabled"><b>@lang("Authorize All")</b>
+                        <p class="text-xs">Gives all the roles the permission.</p>
                     </button>
                 </div>
                 <div class="w-full mb-1">
                     <button type="button" wire:click="disallowAll" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
                     hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
-                        wire:loading.attr="disabled">@lang("Unauthorize All")
+                        wire:loading.attr="disabled"><b>@lang("Unauthorize All")</b>
+                        <p class="text-xs">Takes back the permission from all roles.</p>
                     </button>
                 </div>
                 <div class="w-full">
-                    <button type="button" wire:click="deletePermission" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
-                    hover:bg-indigo-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">@lang("Delete")
+                    <button type="button" wire:click="deletePermission" href="#" class="w-full rounded p-1 px-3 bg-red-100
+                    hover:bg-red-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled"><b>@lang("Delete")</b>
+                    <p class="text-xs">Deletes the permission from the system.</p>
                     </button>
                 </div>
             </div>

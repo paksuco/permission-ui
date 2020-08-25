@@ -57,7 +57,7 @@
                 </div>
                 <div class="w-full">
                     <button type="button" wire:click="deleteRole" href="#" class="w-full rounded p-1 px-3 bg-red-100
-                    hover:bg-indigo-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">
+                    hover:bg-red-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">
                     <b>@lang("Delete Role")</b>
                     <p class="text-xs">Removes the role from the system</p>
                     </button>

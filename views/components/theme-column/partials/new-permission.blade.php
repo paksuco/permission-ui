@@ -1,4 +1,4 @@
-<form wire:submit.prevent="saveNewPermission" class="flex pt-4 items-center text-sm">
+<form wire:submit.prevent="saveNewPermission" class="flex pt-8 items-center text-sm">
     <div>
         <h3 class="text-lg font-normal pb-2 text-gray-600 ">@lang("Add new Permission")</h3>
         <div>
