@@ -1,8 +1,8 @@
-<ul class="flex flex-col">
+<ul class="flex mb-2 flex-col">
     @foreach($roles as $roleRecord)
-    <li class="pb-1">
+    <li class="pb-2">
         <a href="#"
-            class="w-full border rounded flex content-between px-2 py-2 bg-white items-center
+            class="w-full shadow rounded flex content-between px-3 py-2 bg-white items-center
                 @isset($role) @if($role == $roleRecord->id) bg-indigo-800 border-indigo-900 text-indigo-100 @endif @endisset"
             wire:key='roles-{{$roleRecord->id}}'
             wire:click="$emitUp('setActiveRole', {{$roleRecord->id}})">

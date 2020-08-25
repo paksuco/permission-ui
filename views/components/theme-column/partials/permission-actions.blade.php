@@ -10,7 +10,7 @@
             class="inline-flex border-0 rounded-none px-1 pr-3 focus:shadow-none focus:outline-none text-gray-500"
             aria-haspopup="true"
             aria-expanded="true">
-            <i class="fa fa-ellipsis-v" style="min-width: 0"></i>
+            <i class="fa fa-ellipsis-h" style="min-width: 0"></i>
         </button>
         <div class="flex-1">{{$name}}</div>
     </div>

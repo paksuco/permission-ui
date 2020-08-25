@@ -1,21 +1,20 @@
 <div class="flex flex-col flex-1">
-    <style>
-        .paksuco-permissions i {
-            width: 100%;
-            min-width: 34px;
-        }
-    </style>
     <div class="flex flex-1">
-        <div class="lg:w-1/4 xl:w-1/5 p-2 border border-r-0">
-            <div class="w-full items-end">
-                <h2 class="text-2xl font-semibold p-4">Role Management</h2>
-            </div>
+        <div class="lg:w-1/4 xl:w-1/4 p-8 border-t">
             <div class="flex flex-col min-h-0">
+                <h3 class="text-base font-semibold pb-2">@lang("Search")</h3>
+                @include("permission-ui::components.theme-column.partials.search")
+                <h3 class="text-base font-semibold pb-2">@lang("Roles")</h3>
                 @include("permission-ui::components.theme-column.partials.role-list")
+                <h3 class="text-base font-semibold pb-2">@lang("Add new Role")</h3>
                 @include("permission-ui::components.theme-column.partials.new-role")
             </div>
         </div>
-        <div class="lg:w-3/4 xl:w-4/5 border-l border-t">
+        <div class="lg:w-3/4 xl:w-3/4 border-t p-8 shadow-xl bg-white">
+            <div class="w-full items-end">
+                <h2 class="text-3xl font-semibold pb-2">@lang("Role Management")</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum urna sit amet lorem iaculis, aliquet suscipit sapien venenatis. Sed congue vitae velit vitae varius. Mauris egestas consequat mauris sit amet mollis. Proin porta tortor in urna tincidunt vehicula. Integer urna nulla, porttitor ac imperdiet eu, mattis vel lacus. Sed et porttitor ex. Morbi pellentesque massa a velit gravida, vitae rutrum tortor consequat. Donec interdum lacus ut sem consectetur elementum. Proin pellentesque maximus sem sed rhoncus. Cras eget neque a nisi posuere mollis vitae vitae magna. Praesent non volutpat sem, a maximus libero. </p>
+            </div>
             @if($role)
                 @include("permission-ui::components.theme-column.partials.mappings", ["role" => $role, "updated" => $updated])
                 @include("permission-ui::components.theme-column.partials.new-permission")

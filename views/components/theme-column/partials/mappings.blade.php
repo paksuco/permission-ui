@@ -1,14 +1,16 @@
 @isset($role)
-<table class="table paksuco-permissions border-collapse bg-white mr-4">
-    <thead>
+<table class="table paksuco-permissions border-collapse text-base">
+    <thead class="">
         <tr>
-            <th class="px-4 border-b bg-cool-gray-100 text-left">@lang("Permissions")</th>
+            <th class="relative">
+                <h3 class="absolute inset-0 text-lg font-normal flex text-gray-600 justify-start items-end pb-2">@lang("Permissions")</h3>
+            </th>
             @if($useActions)
             @foreach($actions as $key => $action)
-            <th class="p-1 border-b bg-cool-gray-100">
-                <div class="bg-cool-gray-200 font-normal text-xs rounded-md p-1">
-                    <i class='text-gray-600 pt-1 subpixel-antialiased text-2xl {{$action}}' alt='{{$key}}' style="min-width: 48px"></i>
-                    <div class="capitalize">{{$key}}</div>
+            <th class="p-1">
+                <div class="font-normal text-xs bg-cool-gray-100 rounded-md p-2 mb-1">
+                    <i class='text-gray-700 pt-1 subpixel-antialiased text-2xl {{$action}}' alt='{{$key}}' style="min-width: 48px"></i>
+                    <div class="capitalize text-gray-700">{{$key}}</div>
                 </div>
             </th>
             @endforeach
@@ -20,8 +22,9 @@
             $looper = $useActions ? $permissionGroups : $permissions;
         @endphp
         @foreach ($looper as $permission)
+        @php $rowmod = $loop->even @endphp
         <tr>
-            <td class="px-4 w-full border-b">
+            <td class="px-4 w-full rounded-l-lg  {{ $rowmod ? 'bg-gray-100' : 'bg-cool-gray-100' }}">
                 @livewire("permission-ui::permission-actions", [
                     "permission" => $permission
                 ], key("permission-" . ($useActions ? $permission : $permission->id)))
@@ -29,7 +32,7 @@
             @if($useActions)
             @foreach($actions as $key => $action)
             @php $perm = $permissions->where("name", "=", $permission . "-" . $key)->first(); @endphp
-            <td class="p-1 text-center border-b">
+            <td class="p-2 text-center {{ $loop->last ? 'rounded-r-lg' : '' }} {{ $rowmod ? 'bg-gray-100' : 'bg-cool-gray-100' }}">
                 @if($perm instanceof \Spatie\Permission\Models\Permission)
                 @livewire("permission-ui::button", [
                     "role" => $role,
@@ -41,7 +44,7 @@
             </td>
             @endforeach
             @else
-            <td class="p-1 border-b text-center">
+            <td class="p-2 text-center">
                 @if($permission instanceof \Spatie\Permission\Models\Permission)
                     @livewire("permission-ui::button", [
                             "role" => $role,
@@ -53,6 +56,7 @@
             </td>
             @endif
         </tr>
+        <tr class="bg-transparent h-1 block"></tr>
         @endforeach
     </tbody>
 </table>

@@ -15,6 +15,7 @@ class Permissions extends Component
     public $separator;
     public $updated;
     public $role;
+    public $searchKeyword;
 
     protected $listeners = ['refreshMappings', 'togglePermission', 'setActiveRole', 'deleteRole'];
 
@@ -28,6 +29,7 @@ class Permissions extends Component
         }
         $this->updated = false;
         $this->role = SpatieRole::first()->id;
+        $this->searchKeyword = null;
     }
 
     public function saveNewRole()
@@ -80,6 +82,11 @@ class Permissions extends Component
         $this->role = $id;
     }
 
+    public function searchRoles()
+    {
+        $this->render();
+    }
+
     public function deleteRole($id)
     {
         SpatieRole::where("id", $id)->first()->delete();
@@ -105,6 +112,10 @@ class Permissions extends Component
                 ->transform(function ($permission) use ($firstAction) {
                     return substr($permission->name, 0, strlen($permission->name) - strlen($firstAction) - 1);
                 });
+        }
+
+        if ($this->searchKeyword) {
+            $roles = SpatieRole::where("name", 'like', '%'.$this->searchKeyword.'%')->with("permissions")->get();
         }
 
         return view("permission-ui::components.theme-".config('permission-ui.theme').".table", [
