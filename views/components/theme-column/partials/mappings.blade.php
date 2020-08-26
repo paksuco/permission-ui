@@ -27,14 +27,14 @@
             <td colspan="5" class="px-4 pt-2 w-full rounded-t-lg  {{ $rowmod ? 'bg-gray-100' : 'bg-cool-gray-100' }}">
                 @livewire("permission-ui::permission-actions", [
                     "permission" => $useActions ? $permission : $permission->name
-                ], key("permission-" . ($useActions ? $permission : $permission->id)))
+                ], key("permission-actions-1-" . ($useActions ? $permission : $permission->id)))
             </td>
         </tr>
         <tr>
             <td class="hidden sm:table-cell px-4 w-full rounded-l-lg  {{ $rowmod ? 'bg-gray-100' : 'bg-cool-gray-100' }}">
                 @livewire("permission-ui::permission-actions", [
                     "permission" => $useActions ? $permission : $permission->name
-                ], key("permission-" . ($useActions ? $permission : $permission->id)))
+                ], key("permission-actions-2-" . ($useActions ? $permission : $permission->id)))
             </td>
             @if($useActions)
             @foreach($actions as $key => $action)
@@ -44,7 +44,7 @@
                 @livewire("permission-ui::button", [
                     "role" => $role,
                     "permission" => $perm->id
-                ], key("permission-button-$perm->id-$role"))
+                ], key("permission-button-1-$perm->id-$role"))
                 @else
                 <i class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
                 @endif
@@ -56,7 +56,7 @@
                     @livewire("permission-ui::button", [
                             "role" => $role,
                             "permission" => $permission->id
-                        ], key("permission-button-$permission->id-$role"))
+                        ], key("permission-button-2-$permission->id-$role"))
                 @else
                 <i class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
                 @endif

@@ -3,15 +3,15 @@
     <li class="pb-2">
         <a href="#"
             class="w-full shadow rounded flex content-between px-3 py-2 bg-white items-center
-                @isset($role) @if($role == $roleRecord->id) bg-indigo-800 border-indigo-900 text-indigo-100 @endif @endisset"
+                {{ isset($role) && $role == $roleRecord->id ? 'bg-indigo-800 border-indigo-900 text-indigo-100' : '' }}"
             wire:key='roles-{{$roleRecord->id}}'
             wire:click="$emitUp('setActiveRole', {{$roleRecord->id}})">
             <i class="fa fa-check text-indigo-500 mr-3"></i>
             <div class="flex-1 capitalize">{{$roleRecord->name}}</div>
-            <div class="@isset($role) @if($role == $roleRecord->id) text-white @else text-gray-500 @endif @else text-gray-500 @endisset">
+            <div class=" {{ isset($role) ? ( $role == $roleRecord->id ? 'text-white' : 'text-gray-500') : 'text-gray-500' }}">
                 @livewire("permission-ui::role-actions", [
                     "role" => $roleRecord
-                ], key("role-" . $roleRecord->id))
+                ], key("role-action-" . $roleRecord->id))
             </div>
         </a>
     </li>
