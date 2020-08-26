@@ -28,7 +28,7 @@ class Permissions extends Component
             $this->useActions = false;
         }
         $this->updated = false;
-        $this->role = SpatieRole::first()->id;
+        $this->role = SpatieRole::first() ? SpatieRole::first()->id : null;
         $this->searchKeyword = null;
     }
 
