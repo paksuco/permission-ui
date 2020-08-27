@@ -21,7 +21,7 @@
         @php
             $looper = $useActions ? $permissionGroups : $permissions;
         @endphp
-        @foreach ($looper as $permission)
+        @forelse ($looper as $permission)
         @php $rowmod = $loop->even @endphp
         <tr class="sm:hidden">
             <td colspan="5" class="px-4 pt-2 w-full rounded-t-lg  {{ $rowmod ? 'bg-gray-100' : 'bg-cool-gray-100' }}">
@@ -64,7 +64,13 @@
             @endif
         </tr>
         <tr class="bg-transparent h-1 block"></tr>
-        @endforeach
+        @empty
+        <tr>
+            <td class="w-full text-sm">
+                <div class="bg-yellow-100 px-6 py-3 rounded border border-yellow-200">No permissions found. Start with adding a new permission using the form below.</div>
+            </td>
+        </tr>
+        @endforelse
     </tbody>
 </table>
 @endisset

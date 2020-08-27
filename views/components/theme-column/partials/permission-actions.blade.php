@@ -43,27 +43,27 @@
                     <button type="button" wire:click="updatePermission" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
                     hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
                         wire:loading.attr="disabled"><b>@lang("Update")</b>
-                        <p class="text-xs">Changes the name of the permission and saves it to the database</p>
+                        <p class="text-xs">@lang("Changes the name of the permission and saves it to the database")</p>
                     </button>
                 </div>
                 <div class="w-full mb-1">
                     <button type="button" wire:click="allowAll" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
                     hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
-                        wire:loading.attr="disabled"><b>@lang("Authorize All")</b>
-                        <p class="text-xs">Gives all the roles the permission.</p>
+                        wire:loading.attr="disabled"><b>@lang("Authorize All Roles")</b>
+                        <p class="text-xs">@lang("Gives all the roles the permission.")</p>
                     </button>
                 </div>
                 <div class="w-full mb-1">
                     <button type="button" wire:click="disallowAll" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
                     hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
-                        wire:loading.attr="disabled"><b>@lang("Unauthorize All")</b>
-                        <p class="text-xs">Takes back the permission from all roles.</p>
+                        wire:loading.attr="disabled"><b>@lang("Unauthorize All Roles")</b>
+                        <p class="text-xs">@lang("Takes back the permission from all roles.")</p>
                     </button>
                 </div>
                 <div class="w-full">
                     <button type="button" wire:click="deletePermission" href="#" class="w-full rounded p-1 px-3 bg-red-100
                     hover:bg-red-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled"><b>@lang("Delete")</b>
-                    <p class="text-xs">Deletes the permission from the system.</p>
+                    <p class="text-xs">@lang("Deletes the permission from the system.")</p>
                     </button>
                 </div>
             </div>
