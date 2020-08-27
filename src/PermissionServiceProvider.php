@@ -31,8 +31,8 @@ class PermissionServiceProvider extends ServiceProvider
 
         Event::listen("paksuco.menu.beforeRender", function ($key, $container) {
             if ($key == "admin") {
-                if ($container->hasItem("Permission") == false) {
-                    $container->addItem("Permission", route("paksuco.permissions"), "fa fa-lock");
+                if ($container->hasItem("Permissions") == false) {
+                    $container->addItem("Permissions", route("paksuco.permissions"), "fa fa-lock");
                 }
             }
         });
