@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="w-full lg:w-3/4 border-t p-8 shadow-xl bg-white">
-            <div class="w-full items-end">
+            <div class="w-full items-end pb-8">
                 <h2 class="text-3xl font-semibold mb-3" style="line-height: 1em">@lang("Role Management")</h2>
                 <p class="text-gray-600 font-light leading-5 mb-4 text-sm">Lorem ipsum dolor sit amet, consectetur
                     adipiscing elit. Proin interdum urna sit amet lorem iaculis, aliquet suscipit sapien venenatis.

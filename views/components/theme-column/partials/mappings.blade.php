@@ -1,5 +1,5 @@
 @isset($role)
-<table class="table w-full paksuco-permissions border-collapse text-base">
+<table class="table paksuco-permissions border-collapse text-base w-4/5">
     <thead class="">
         <tr>
             <th class="relative hidden sm:table-cell">
@@ -51,7 +51,7 @@
             </td>
             @endforeach
             @else
-            <td class="p-2 text-center">
+            <td class="p-2 text-center bg-cool-gray-200 rounded-r">
                 @if($permission instanceof \Spatie\Permission\Models\Permission)
                     @livewire("permission-ui::button", [
                             "role" => $role,
