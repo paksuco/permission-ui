@@ -52,7 +52,7 @@ class PermissionServiceProvider extends ServiceProvider
     {
         $configPath = __DIR__ . '/../config/permission-ui.php';
 
-        $this->publishes([$configPath => config_path('permission-ui.php')]);
+        $this->publishes([$configPath => config_path('permission-ui.php')], "config");
 
         $this->mergeConfigFrom($configPath, 'permission-ui');
     }
@@ -66,7 +66,7 @@ class PermissionServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../views', 'permission-ui');
 
-        $this->publishes([__DIR__ . '/../views' => base_path('resources/views/vendor/permission-ui')]);
+        $this->publishes([__DIR__ . '/../views' => base_path('resources/views/vendor/permission-ui')], "views");
 
         Livewire::component('permission-ui::permissions', \Paksuco\Permission\Components\Permissions::class);
         Livewire::component('permission-ui::permission-actions', \Paksuco\Permission\Components\PermissionActions::class);
@@ -76,7 +76,7 @@ class PermissionServiceProvider extends ServiceProvider
 
     private function handleMigrations()
     {
-        $this->publishes([__DIR__ . '/../migrations' => base_path('database/migrations')]);
+        $this->publishes([__DIR__ . '/../migrations' => base_path('database/migrations')], "migrations");
     }
 
     private function handleRoutes()
