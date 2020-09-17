@@ -53,4 +53,10 @@ return [
      * separator is a "-" character.
      */
     'permission_action_separator' => '-',
+
+
+    /**
+     * If you're using Paksuco/Menu, you can set the priority here
+     */
+    'menu_priority' => 30
 ];
