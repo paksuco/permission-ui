@@ -11,5 +11,5 @@ Route::group([
     'prefix' => config("permission-ui.admin_route_prefix", ""),
     'as' => 'paksuco.',
 ], function () {
-    Route::livewire('/permissions', "permission-ui::permissions")->name("permissions")->middleware(config("permission-ui.middleware", []));
+    Route::get('/permissions', \Paksuco\Permission\Components\Permissions::class)->name("permissions")->middleware(config("permission-ui.middleware", []));
 });
