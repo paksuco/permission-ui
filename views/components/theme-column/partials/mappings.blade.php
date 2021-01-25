@@ -1,16 +1,16 @@
 @isset($role)
-<table class="table paksuco-permissions border-collapse text-base w-4/5">
+<table class="table w-4/5 text-base border-collapse paksuco-permissions">
     <thead class="">
         <tr>
             <th class="relative hidden sm:table-cell">
-                <h3 class="absolute hidden sm:flex inset-0 text-lg font-normal text-gray-600 justify-start items-end pb-2">@lang("Permissions")</h3>
+                <h3 class="absolute inset-0 items-end justify-start hidden pb-2 text-lg font-normal text-gray-600 sm:flex">@lang("Permissions")</h3>
             </th>
             @if($useActions)
             @foreach($actions as $key => $action)
             <th class="p-1">
-                <div class="font-normal text-xs bg-cool-gray-100 rounded-md p-2 mb-1">
+                <div class="p-2 mb-1 text-xs font-normal rounded-md bg-cool-gray-100">
                     <i class='text-gray-700 pt-1 subpixel-antialiased text-base sm:text-2xl {{$action}}' alt='{{$key}}' style="min-width: 48px"></i>
-                    <div class="capitalize text-gray-700">{{$key}}</div>
+                    <div class="text-gray-700 capitalize">{{$key}}</div>
                 </div>
             </th>
             @endforeach
@@ -46,28 +46,28 @@
                     "permission" => $perm->id
                 ], key("permission-button-1-$perm->id-$role"))
                 @else
-                <i class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
+                <i class='p-2 subpixel-antialiased font-bold text-orange-200 bg-gray-200 rounded-lg fas fa-exclamation-triangle text -lg cursor-disabled'></i>
                 @endif
             </td>
             @endforeach
             @else
-            <td class="p-2 text-center bg-cool-gray-200 rounded-r">
+            <td class="p-2 text-center rounded-r bg-cool-gray-200">
                 @if($permission instanceof \Spatie\Permission\Models\Permission)
                     @livewire("permission-ui::button", [
                             "role" => $role,
                             "permission" => $permission->id
                         ], key("permission-button-2-$permission->id-$role"))
                 @else
-                <i class='bg-gray-200 subpixel-antialiased p-2 rounded-lg fas fa-exclamation-triangle text-orange-200 text -lg font-bold cursor-disabled'></i>
+                <i class='p-2 subpixel-antialiased font-bold text-orange-200 bg-gray-200 rounded-lg fas fa-exclamation-triangle text -lg cursor-disabled'></i>
                 @endif
             </td>
             @endif
         </tr>
-        <tr class="bg-transparent h-1 block"></tr>
+        <tr class="block h-1 bg-transparent"></tr>
         @empty
         <tr>
             <td class="w-full text-sm">
-                <div class="bg-yellow-100 px-6 py-3 rounded border border-yellow-200">No permissions found. Start with adding a new permission using the form below.</div>
+                <div class="px-6 py-3 bg-yellow-100 border border-yellow-200 rounded">@lang('No permissions found. Start with adding a new permission using the form below.')</div>
             </td>
         </tr>
         @endforelse

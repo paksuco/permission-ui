@@ -6,10 +6,10 @@
         }
     </style>
 
-    <div class="sm:w-1/2 items-end flex">
-        <h2 class="text-2xl font-semibold">Role Management</h2>
+    <div class="flex items-end sm:w-1/2">
+        <h2 class="text-2xl font-semibold">@lang('Role Management')</h2>
     </div>
-    <div class="sm:w-1/2 mt-3 sm:mt-0 sm:text-right">
+    <div class="mt-3 sm:w-1/2 sm:mt-0 sm:text-right">
         &nbsp;
     </div>
 

@@ -6,7 +6,7 @@
     @click.away="open = false"
     @refresh-mappings.window="open = false">
     <div @click="open = !open"
-        class="inline-flex border-0 rounded-none px-1 focus:shadow-none focus:outline-none"
+        class="inline-flex px-1 border-0 rounded-none focus:shadow-none focus:outline-none"
         aria-haspopup="true" aria-expanded="true">
         <i class="fa fa-ellipsis-v"></i>
     </div>
@@ -15,51 +15,46 @@
         x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="transform opacity-100 scale-100"
         x-transition:leave-end="transform opacity-0 scale-0"
-        class="origin-top-left absolute left-full top-0 mt-2 w-full rounded-md shadow-lg z-10 min-w-full text-gray-700"
+        class="absolute top-0 z-10 w-full min-w-full mt-2 text-gray-700 origin-top-left rounded-md shadow-lg left-full"
         style="width: 270px">
-        <div class="rounded-md bg-white" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-            <div class="px-4 py-2 font-light text-lg rounded-t-md">
+        <div class="bg-white rounded-md" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <div class="px-4 py-2 text-lg font-light rounded-t-md">
                 @lang("Edit Role")
             </div>
             <div class="px-3 pb-3 text-sm">
                 @if(count($errors))
                 <div class="w-full">
                     @foreach ($errors->all() as $message)
-                    <div class="bg-red-200 p-2 rounded text-gray-900 text-sm leading-4 mb-1"><b>@lang("Error"):
+                    <div class="p-2 mb-1 text-sm leading-4 text-gray-900 bg-red-200 rounded"><b>@lang("Error"):
                         </b>{{ $message }}</div>
                     @endforeach
                 </div>
                 @endif
                 <div class="w-full mb-1">
-                    <input wire:model.debounce.500ms="name" class="bg-cool-gray-200 appearance-none w-full rounded p-2 text-gray-700
-                           leading-tight focus:outline-none focus:shadow-none" wire:loading.attr="disabled" placeholder="@lang('Role Name')">
+                    <input wire:model.debounce.500ms="name" class="w-full p-2 leading-tight text-gray-700 rounded appearance-none bg-cool-gray-200 focus:outline-none focus:shadow-none" wire:loading.attr="disabled" placeholder="@lang('Role Name')">
                 </div>
                 <div class="w-full mb-1">
-                    <button type="button" wire:click="updateRole" href="#" class="w-full rounded p-2 px-3 bg-indigo-100
-                            hover:bg-indigo-200 focus:outline-none text-left" role="menuitem"
+                    <button type="button" wire:click="updateRole" href="#" class="w-full p-2 px-3 text-left bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none" role="menuitem"
                         wire:loading.attr="disabled"><b>@lang("Update Name")</b>
-                        <p class="text-xs">Updates the role name and saves it to the database</p>
+                        <p class="text-xs">@lang('Updates the role name and saves it to the database')</p>
                     </button>
                 </div>
                 <div class="w-full mb-1">
-                    <button type="button" wire:click="allowAll" href="#" class="w-full rounded p-2 px-3 bg-indigo-100
-                    hover:bg-indigo-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">
+                    <button type="button" wire:click="allowAll" href="#" class="w-full p-2 px-3 text-left bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none" role="menuitem" wire:loading.attr="disabled">
                         <b>@lang("Grant All Permissions")</b>
-                        <p class="text-xs">Gives the role all the permissions defined in the system.</p>
+                        <p class="text-xs">@lang('Gives the role all the permissions defined in the system.')</p>
                     </button>
                 </div>
                 <div class="w-full mb-1">
-                    <button type="button" wire:click="disallowAll" href="#" class="w-full rounded p-1 px-3 bg-indigo-100
-                    hover:bg-indigo-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">
+                    <button type="button" wire:click="disallowAll" href="#" class="w-full p-1 px-3 text-left bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none" role="menuitem" wire:loading.attr="disabled">
                     <b>@lang("Revoke All Permissions")</b>
-                    <p class="text-xs">Takes back all the permissions from the role.</p>
+                    <p class="text-xs">@lang('Takes back all the permissions from the role.')</p>
                     </button>
                 </div>
                 <div class="w-full">
-                    <button type="button" wire:click="deleteRole" href="#" class="w-full rounded p-1 px-3 bg-red-100
-                    hover:bg-red-200 focus:outline-none text-left" role="menuitem" wire:loading.attr="disabled">
+                    <button type="button" wire:click="deleteRole" href="#" class="w-full p-1 px-3 text-left bg-red-100 rounded hover:bg-red-200 focus:outline-none" role="menuitem" wire:loading.attr="disabled">
                     <b>@lang("Delete Role")</b>
-                    <p class="text-xs">Removes the role from the system</p>
+                    <p class="text-xs">@lang('Removes the role from the system')</p>
                     </button>
                 </div>
             </div>
