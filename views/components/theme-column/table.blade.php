@@ -1,25 +1,19 @@
 <div class="flex flex-col flex-1">
-    <div class="flex flex-1 flex-wrap">
-        <div class="w-full lg:w-60 flex-shrink-0 p-4 border-t">
+    <div class="flex flex-wrap flex-1">
+        <div class="flex-shrink-0 w-full p-4 border-t lg:w-60">
             <div class="flex flex-col min-h-0">
-                <h3 class="text-base font-semibold pb-2">@lang("Search")</h3>
+                <h3 class="pb-2 text-base font-semibold">@lang("Search")</h3>
                 @include("permission-ui::components.theme-column.partials.search")
-                <h3 class="text-base font-semibold pb-2">@lang("Roles")</h3>
+                <h3 class="pb-2 text-base font-semibold">@lang("Roles")</h3>
                 @include("permission-ui::components.theme-column.partials.role-list")
-                <h3 class="text-base font-semibold pb-2">@lang("Add new Role")</h3>
+                <h3 class="pb-2 text-base font-semibold">@lang("Add new Role")</h3>
                 @include("permission-ui::components.theme-column.partials.new-role")
             </div>
         </div>
-        <div class="flex-1 border-t p-8 shadow-xl bg-white">
-            <div class="w-full items-end pb-8">
-                <h2 class="text-3xl font-semibold mb-3" style="line-height: 1em">@lang("Role Management")</h2>
-                <p class="text-gray-600 font-light leading-5 mb-4 text-sm">Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Proin interdum urna sit amet lorem iaculis, aliquet suscipit sapien venenatis.
-                    Sed congue vitae velit vitae varius. Mauris egestas consequat mauris sit amet mollis. Proin porta
-                    tortor in urna tincidunt vehicula. Integer urna nulla, porttitor ac imperdiet eu, mattis vel lacus.
-                    Sed et porttitor ex. Morbi pellentesque massa a velit gravida, vitae rutrum tortor consequat. Donec
-                    interdum lacus ut sem consectetur elementum. Proin pellentesque maximus sem sed rhoncus. Cras eget
-                    neque a nisi posuere mollis vitae vitae magna. Praesent non volutpat sem, a maximus libero. </p>
+        <div class="flex-1 p-8 bg-white border-t shadow-xl">
+            <div class="items-end w-full pb-8">
+                <h2 class="mb-3 text-3xl font-semibold" style="line-height: 1em">@lang("Role Management")</h2>
+                <p class="mb-4 text-sm font-light leading-5 text-gray-600">@lang("This page contains the available permissions and user roles. You can create a new role, assign a permission to a role, and use that role to limit an user^s authorized actions.")</p>
             </div>
             @if($role)
                 @include("permission-ui::components.theme-column.partials.mappings", [
